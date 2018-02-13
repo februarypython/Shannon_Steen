@@ -1,0 +1,26 @@
+*{
+    margin: 0px;
+    padding: 0px;
+}
+body{
+    width: 900px;
+    margin: 20px;
+}
+div.container{
+    width: 800px;
+    min-height: 500px;
+    padding: 20px;
+    background-image: url("/static/images/rain.jpg");
+    background-repeat: no-repeat;
+}
+h1{
+    width: 500px;
+    color: white;
+    text-align: center;
+    margin: 5px auto;    
+}
+img{
+    display: block;
+    width: 500px;
+    margin: 10px auto;
+}
