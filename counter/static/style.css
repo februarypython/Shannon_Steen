@@ -1,0 +1,23 @@
+*{
+    margin: 0px;
+    padding: 0px;
+}
+div.container{
+    margin: 50px;
+    padding: 50px;
+    width: 250px;
+    background-color: azure;
+    box-shadow: 3px 3px 3px #252525;
+}
+h1, h3{
+    text-align: center;
+    margin: 10px;
+}
+form button{
+    margin: 10px 20px;
+    width: 75px;
+    padding: 5px;
+    border: 1px solid #002244;
+    border-radius: 5px;
+    box-shadow: 1px 1px 1px #252525;
+}

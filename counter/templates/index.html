@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Counter</title>
+    <link rel="stylesheet" href="{{url_for('static', filename='style.css')}}">
+</head>
+<body>
+    <div class="container">
+        <h1>Counter</h1>
+        <h3>{{session['counter']}} times</h3>
+        <form>
+            <button type="submit" formaction="/add2">+2</button>
+            <button type="submit" formaction="/reset">Reset</button>
+        </form>
+    </div>
+</body>
+</html>
