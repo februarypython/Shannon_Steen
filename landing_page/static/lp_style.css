@@ -1,0 +1,60 @@
+*{
+    margin: 0px;
+    padding: 0px;
+}
+h1, h2{
+    margin-bottom: 10px;
+    text-align: center;
+    color: #002244;
+}
+h3{
+    text-align: center;
+    color: #002244;
+    margin: 20px 10px 5px 10px;  
+}
+span{
+    font-style: italic;
+    font-weight: bold;
+}
+div{
+    display: inline-block;
+    margin: 20px;
+    padding: 20px;
+    width: 600px;
+    background-color: #f3f3ef;
+    box-shadow: 3px 3px 6px #252525;
+    color: #002244;
+}
+.home img{
+        display: block;
+        margin: 0px auto;
+        width: 125px;
+}
+.ninjas p{
+    padding: 5px 0px;
+}
+.ninjas ul{
+    display: block;
+    width: 500px;
+    margin: 0px auto;
+}
+.ninjas li{
+    padding: 5px;
+    font-style: italic;
+}
+.ninjas img{
+    width: 180px;
+    margin-left: 75px;
+}
+form{
+    display: inline-block;
+    vertical-align: top;
+}
+input{
+    margin: 5px;
+    width: 175px;
+}
+.register img{
+    margin-left: 20px;
+    width: 175px;
+}
