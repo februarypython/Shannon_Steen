@@ -1,0 +1,14 @@
+form{
+    display: inline-block;
+    width: 400px;
+    margin: 20px;
+    padding: 20px;
+    background-color: azure;
+    box-shadow: 3px 3px 3px #252525;
+}
+input{
+    width: 300px;
+    margin: 5px;
+    color: #002244;
+    font-style: italic;
+}
