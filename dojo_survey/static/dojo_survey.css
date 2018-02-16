@@ -2,6 +2,11 @@
     margin: 0px;
     padding: 0px;
 }
+.errors{
+    margin: 20px;
+    color: red;
+    font-weight: bold;
+}
 form{
     width: 350px;
     margin: 20px;

@@ -8,6 +8,13 @@
     <title>Dojo Survey</title>
 </head>
 <body>
+    {% with messages = get_flashed_messages() %}
+        {% if messages%}
+            {% for message in messages%}
+            <p class="errors">{{message}}</p>
+            {% endfor %}
+        {% endif %}
+    {% endwith %}
     <form action="/results" method="post">
         <label for="name">Your Name:</label>
         <input type="text" name="name">
@@ -31,7 +38,7 @@
             <option value="C#">C#</option>
             <option value="Java">Java</option>
         </select>
-        <label for="comment">Comment (optional):</label>
+        <label for="comment">Brief Comment:</label>
         <textarea name="comment" rows="4" cols="20"></textarea>
         <input type="submit" value="Submit">
     </form>
