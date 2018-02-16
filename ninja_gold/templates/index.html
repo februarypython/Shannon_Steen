@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="{{url_for('static', filename='style.css')}}">
+    <title>Ninja Gold</title>
+</head>
+<body>
+    <div class="container">
+        <h1>Your Gold</h1>
+        <input type="number" name='gold' value={{gold}}>
+        <div class="locations">
+            <div id="farm">
+                <h2>Farm</h2>
+                <h3>(earns 10-20)</h3>
+                <form action="/process_gold" method='POST'>
+                    <input type="hidden" name="building" value="farm">
+                    <input type="submit" value="Find Gold!">
+                </form>
+            </div>
+            <div id="cave">
+                <h2>Cave</h2>
+                <h3>(earns 5-10)</h3>
+                <form action="/process_gold" method='POST'>
+                    <input type="hidden" name="building" value="cave">
+                    <input type="submit" value="Find Gold!">
+                </form>
+            </div>
+            <div id="house">
+                <h2>House</h2>
+                <h3>(earns 2-5)</h3>
+                <form action="/process_gold" method='POST'>
+                    <input type="hidden" name="building" value="house">
+                    <input type="submit" value="Find Gold!">
+                </form>
+            </div>
+            <div id="casino">
+                <h2>Casino</h2>
+                <h3>(earns/takes 0-50)</h3>
+                <form action="/process_gold" method='POST'>
+                    <input type="hidden" name="building" value="casino">
+                    <input type="submit" value="Find Gold!">
+                </form>
+            </div>
+        </div>
+        <h4>Activities:</h4>
+        <div class="activities">
+            {% for wins in session['ninja_wins'] %}
+            <p class="wins">{{wins}}</p>
+            {% endfor %}
+            {% for losses in session['ninja_losses'] %}
+            <p class="losses">{{losses}}</p>
+            {% endfor %}
+        </div>
+    </div>
+</body>
+</html>
