@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Registration Form</title>
+    <link rel="stylesheet" href="{{url_for('static', filename='style.css')}}">
+</head>
+<body>
+    <div class="container">
+        <form action="/register" method="POST">
+            <h1>Please Register</h1>
+            <label for="first_name">First Name:</label>
+            <input type="text" name="first_name" id="first_name" value="{{firstname}}">
+                <!-- Error message - Missing First Name -->
+                {% with errors = get_flashed_messages(category_filter=['blank_first_name']) %}
+                    {% if errors %}
+                        {% for msg in errors %}
+                            <p class="errors">{{msg}}</p>
+                        {% endfor %}
+                    {% endif  %}
+                {% endwith %}
+            <label for="last_name">Last Name:</label>
+            <input type="text" name="last_name" id="last_name" value="{{lastname}}">
+                <!-- Error message - Missing Last Name -->
+                {% with errors = get_flashed_messages(category_filter=['blank_last_name']) %}
+                    {% if errors %}
+                        {% for msg in errors %}
+                            <p class="errors">{{msg}}</p>
+                        {% endfor %}
+                    {% endif  %}
+                {% endwith %}
+            <label for="email">Email address:</label>
+            <input type="email" name="email" id="email" value="{{email}}">
+                <!-- Error message - Invalid Email -->
+                {% with errors = get_flashed_messages(category_filter=['bad_email']) %}
+                    {% if errors %}
+                        {% for msg in errors %}
+                            <p class="errors">{{msg}}</p>
+                        {% endfor %}
+                    {% endif  %}
+                {% endwith %}
+            <label for="password">Create a Password:</label>
+            <input type="password" name="password" id="password" value="{{password}}">
+                <!-- Error message - Password doesn't meet requirements -->
+                {% with errors = get_flashed_messages(category_filter=['bad_pw']) %}
+                    {% if errors %}
+                        {% for msg in errors %}
+                            <p class="errors">{{msg}}</p>
+                        {% endfor %}
+                    {% endif  %}
+                {% endwith %}
+            <label for="password_conf">Confirm Password:</label>
+            <input type="password" name="password_conf" id="password_conf">
+                <!-- Error message - Passwords do not match -->
+                {% with errors = get_flashed_messages(category_filter=['pw_conf_fail']) %}
+                    {% if errors %}
+                        {% for msg in errors %}
+                            <p class="errors">{{msg}}</p>
+                        {% endfor %}
+                    {% endif  %}
+                {% endwith %}
+            <label for="birth_date">Date of Birth:</label>
+            <input type="date" name="birth_date" id="birth_date" value="{{birth_date}}">
+                <!-- Error message - Not a valid birthdate -->
+                {% with errors = get_flashed_messages(category_filter=['bad_dob']) %}
+                    {% if errors %}
+                        {% for msg in errors %}
+                            <p class="errors">{{msg}}</p>
+                        {% endfor %}
+                    {% endif  %}
+                {% endwith %}
+            <input type="submit" value="Register">
+        </form>
+    </div>
+</body>
+</html>
