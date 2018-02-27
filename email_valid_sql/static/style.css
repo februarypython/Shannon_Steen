@@ -1,0 +1,74 @@
+*{
+    margin: 0px;
+    padding: 0px;
+}
+.container{
+    width: 800px;
+    margin: 20px;
+    padding: 20px;
+}
+h1{
+    display: inline-block;
+    width: 420px;
+    text-align: center;
+    padding: 10px;
+    color: #224455;
+}
+form{
+    width: 400px;
+    margin: 10px;
+    padding: 20px;
+    display: grid;
+    grid-template-columns: 115px 1fr;
+    background: #c8dee9;
+    box-shadow: 3px 3px 3px #252525;
+}
+form label, input{
+    margin: 5px;
+    padding: 5px 0px;
+}
+input[type='submit']{
+    width: fit-content;
+    padding: 5px 10px;
+    color: #224455;
+    border: 1px solid #224455;
+    border-radius: 5px;
+    box-shadow: 1px 1px 1px #252525;
+    margin: 10px auto 0px auto;
+    grid-column: 2 / 2; 
+    font-weight: bold;
+}
+h2{
+    display: inline-block;
+    width: 420px;
+    padding: 10px;
+    text-align: center;
+}
+.results{
+    display: inline-block;
+    width: 520px;
+    margin: 5px 20px;
+    padding: 20px;
+    background: #c8dee9;
+    box-shadow: 3px 3px 3px #252525;
+}
+h3{
+    display: inline-block;
+    width: 500px;
+    padding: 5px 0px;
+}
+.valid{
+    display: inline-block;
+    width: 510px;
+    margin: 0px 20px;
+    color: green;
+}
+.invalid{
+    color: red;
+}
+p{
+    display: inline-block;
+    width: 250px;
+    padding: 5px 0px;
+    margin-left: 10px;
+}
