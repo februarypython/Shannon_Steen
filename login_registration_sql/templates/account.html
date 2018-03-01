@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Profile</title>
+    <script src="https://code.jquery.com/jquery-3.1.0.min.js"></script>
+    <link rel="stylesheet" href="{{url_for('static', filename='style.css')}}">
+    <script>
+        $(document).ready(function(){
+            $('button').click(function(){
+                $('.update').slideToggle();
+            });
+        });
+    </script>
+</head>
+<body>
+    <div class="container">
+        <h1>Welcome {{result[0]['first_name']}}. {{session['status']}}</h1>
+        <button>View My Information</button>
+        <form class="update" action="/update" method="POST">
+            <h2>Need to update your profile?</h2>
+            <input type="text" name="address" id="address" value="{{result[0]['address']}}">
+            <input type="text" name="city" id="city" placeholder="City" value={{result[0]['city']}}>
+            <select name="state" id="state" value="{{result[0]['state']}}">
+                <option value='Not_Selected'></option>
+                <option value='AL' {% if result[0]['state']=='AL' %} selected='selected'{% endif %}>AL</option>
+                <option value='AK' {% if result[0]['state']=='AK' %} selected='selected'{% endif %}>AK</option>
+                <option value='AZ' {% if result[0]['state']=='AZ' %} selected='selected'{% endif %}>AZ</option>
+                <option value='AR' {% if result[0]['state']=='AR' %} selected='selected'{% endif %}>AR</option>
+                <option value='CA' {% if result[0]['state']=='CA' %} selected='selected'{% endif %}>CA</option>
+                <option value='CO' {% if result[0]['state']=='CO' %} selected='selected'{% endif %}>CO</option>
+                <option value='CT' {% if result[0]['state']=='CT' %} selected='selected'{% endif %}>CT</option>
+                <option value='DC' {% if result[0]['state']=='DC' %} selected='selected'{% endif %}>DC</option>
+                <option value='DE' {% if result[0]['state']=='DE' %} selected='selected'{% endif %}>DE</option>
+                <option value='FL' {% if result[0]['state']=='FL' %} selected='selected'{% endif %}>FL</option>
+                <option value='GA' {% if result[0]['state']=='GA' %} selected='selected'{% endif %}>GA</option>
+                <option value='HI' {% if result[0]['state']=='HI' %} selected='selected'{% endif %}>HI</option>
+                <option value='ID' {% if result[0]['state']=='ID' %} selected='selected'{% endif %}>ID</option>
+                <option value='IL' {% if result[0]['state']=='IL' %} selected='selected'{% endif %}>IL</option>
+                <option value='IN' {% if result[0]['state']=='IN' %} selected='selected'{% endif %}>IN</option>
+                <option value='IA' {% if result[0]['state']=='IA' %} selected='selected'{% endif %}>IA</option>
+                <option value='KS' {% if result[0]['state']=='KS' %} selected='selected'{% endif %}>KS</option>
+                <option value='KY' {% if result[0]['state']=='KY' %} selected='selected'{% endif %}>KY</option>
+                <option value='LA' {% if result[0]['state']=='LA' %} selected='selected'{% endif %}>LA</option>
+                <option value='ME' {% if result[0]['state']=='ME' %} selected='selected'{% endif %}>ME</option>
+                <option value='MD' {% if result[0]['state']=='MD' %} selected='selected'{% endif %}>MD</option>
+                <option value='MA' {% if result[0]['state']=='MA' %} selected='selected'{% endif %}>MA</option>
+                <option value='MI' {% if result[0]['state']=='MI' %} selected='selected'{% endif %}>MI</option>
+                <option value='MN' {% if result[0]['state']=='MN' %} selected='selected'{% endif %}>MN</option>
+                <option value='MS' {% if result[0]['state']=='MS' %} selected='selected'{% endif %}>MS</option>
+                <option value='MO' {% if result[0]['state']=='MO' %} selected='selected'{% endif %}>MO</option>
+                <option value='MT' {% if result[0]['state']=='MT' %} selected='selected'{% endif %}>MT</option>
+                <option value='NE' {% if result[0]['state']=='NE' %} selected='selected'{% endif %}>NE</option>
+                <option value='NV' {% if result[0]['state']=='NV' %} selected='selected'{% endif %}>NV</option>
+                <option value='NH' {% if result[0]['state']=='NH' %} selected='selected'{% endif %}>NH</option>
+                <option value='NJ' {% if result[0]['state']=='NJ' %} selected='selected'{% endif %}>NJ</option>
+                <option value='NM' {% if result[0]['state']=='NM' %} selected='selected'{% endif %}>NM</option>
+                <option value='NY' {% if result[0]['state']=='NY' %} selected='selected'{% endif %}>NY</option>
+                <option value='NC' {% if result[0]['state']=='NC' %} selected='selected'{% endif %}>NC</option>
+                <option value='ND' {% if result[0]['state']=='ND' %} selected='selected'{% endif %}>ND</option>
+                <option value='OH' {% if result[0]['state']=='OH' %} selected='selected'{% endif %}>OH</option>
+                <option value='OK' {% if result[0]['state']=='OK' %} selected='selected'{% endif %}>OK</option>
+                <option value='OR' {% if result[0]['state']=='OR' %} selected='selected'{% endif %}>OR</option>
+                <option value='PA' {% if result[0]['state']=='PA' %} selected='selected'{% endif %}>PA</option>
+                <option value='RI' {% if result[0]['state']=='RI' %} selected='selected'{% endif %}>RI</option>
+                <option value='SC' {% if result[0]['state']=='SC' %} selected='selected'{% endif %}>SC</option>
+                <option value='SD' {% if result[0]['state']=='SD' %} selected='selected'{% endif %}>SD</option>
+                <option value='TN' {% if result[0]['state']=='TN' %} selected='selected'{% endif %}>TN</option>
+                <option value='TX' {% if result[0]['state']=='TX' %} selected='selected'{% endif %}>TX</option>
+                <option value='UT' {% if result[0]['state']=='UT' %} selected='selected'{% endif %}>UT</option>
+                <option value='VT' {% if result[0]['state']=='VT' %} selected='selected'{% endif %}>VT</option>
+                <option value='VA' {% if result[0]['state']=='VA' %} selected='selected'{% endif %}>VA</option>
+                <option value='WA' {% if result[0]['state']=='WA' %} selected='selected'{% endif %}>WA</option>
+                <option value='WV' {% if result[0]['state']=='WV' %} selected='selected'{% endif %}>WV</option>
+                <option value='WI' {% if result[0]['state']=='WI' %} selected='selected'{% endif %}>WI</option>
+                <option value='WY' {% if result[0]['state']=='WY' %} selected='selected'{% endif %}>WY</option>
+            </select>
+            <input type="number" name="zipcode" id="zipcode" placeholder="12345" value={{result[0]['zipcode']}}>
+            <input type="tel" name="mobile" id="mobile" maxlength="12" value={{result[0]['mobile']}}>
+            <input type="tel" name="work" id="work" maxlength="12" placeholder="10 Digit Work number" value={{result[0]['work']}}>
+            <input type="tel" name="work_ext" id="work_ext" maxlength="4" placeholder="Work extension" value={{result[0]['work_ext']}}>
+            <input type="tel" name="other" id="other" maxlength="12"}} placeholder="10 Digit Other Phone" value={{result[0]['other']}}>
+            <input type="email" name="email" id="email" value={{result[0]['email']}}>
+            <input type="submit" value="Update Profile">
+        </form>
+    </div>
+</body>
+</html>
