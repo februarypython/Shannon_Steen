@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="{{url_for('static', filename='style.css')}}">
+    <script src="https://code.jquery.com/jquery-3.1.0.min.js"></script>
+    <script src="{{url_for('static', filename='script.js')}}"></script>
+    <title>The Wall</title>
+</head>
+<body>
+    <div class="container">
+        <div class="navbar">
+            <h1>CodingDojo Wall</h1>
+            <h3>Welcome back, {{session['first_name']}}.</h3>
+            <a href="/signout">sign out</a>
+        </div>
+        <div class="post">
+            <form action="/message" method="POST">
+                <p>Post a message</p>
+                <textarea name="post" id="post" cols="100" rows="5"></textarea>
+                <input type="submit" value="Post message">
+            </form>
+        </div>
+        <div class="messages">
+            {% for post in posts %}
+                <h3>{{post.poster}}<span>{{post.posted}}</span><span class="msgid">{{post.msgid}}</span></h3>
+                <p>{{post.post}}</p>
+                <button {% if post.poster_id != session['user_id'] or (now-post.created_at).total_seconds() > 1800 %} disabled="disabled"{% endif %}>Delete message</button> 
+                <div class="comments">
+                {% for comment in comments %}
+                    {% if comment.message_id == post.msgid %}
+                        <h4>{{comment.commenter}}<span>{{comment.commented}}</span></h4>
+                        <p>{{comment.comment}}</p>
+                    {% endif %}      
+                {% endfor %}
+                </div>
+                <div class="new_comments">
+                    <form action="/comment" method="POST">
+                        <p>Post a comment</p>
+                        <input type="hidden" name="msgid" value="{{post.msgid}}">
+                        <textarea name="comment" id="comment" cols="80" rows="2"></textarea>
+                        <input type="submit" value="Post comment">
+                    </form>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+</body>
+</html>

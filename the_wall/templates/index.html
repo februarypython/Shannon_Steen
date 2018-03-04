@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Login/Register</title>
+    <link rel="stylesheet" href="{{url_for('static', filename='style.css')}}">
+</head>
+<body>
+    <div class="container">
+        <h1>Welcome to the Wall.</h1>
+        <form class="login" action="/login" method="POST">
+            <p>
+                <label for="email">Email</label>
+                <input type="email" name="email" id="email">
+            </p>
+            <p>
+                <label for="password">Password</label>
+                <input type="password" name="password" id="password">
+            </p>
+            <input type="submit" value="Sign In">
+        </form>
+        <div class="error">
+            {% with errors = get_flashed_messages() %}
+                {% if errors %}
+                    {% for msg in errors %}
+                        <h2>{{msg}}</h2>
+                    {% endfor %}
+                {% endif %}
+            {% endwith %}
+        </div>
+        <form class="register" action="/register" method="POST">
+            <h3>Sign Up for an Account</h3>
+            <input type="text" name="first_name" id="first_name" placeholder="First name" value="{{first_name}}">
+            <input type="text" name="last_name" id="last_name" placeholder="Last name" value="{{last_name}}">
+            <input type="email" name="email" id="new_email" placeholder="Email" value="{{email}}">
+            <input type="password" name="password" id="new_password" placeholder="Create password">
+            <input type="password" name="pwconf" id="pwconf" placeholder="Confirm password">
+            <input type="submit" value="Sign Up">
+        </form>
+        <h3>Never miss a message again! Sign In or Sign Up to continue.</h3>
+    </div>
+</body>
+</html>

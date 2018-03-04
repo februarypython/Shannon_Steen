@@ -1,0 +1,184 @@
+*{
+    margin: 0px;
+    padding: 0px;
+}
+.container{
+    width: 900px;
+    background-image: url("/static/brickwall.jpg");
+    background-repeat: no-repeat;
+    background-size: cover;
+    margin: 20px;
+    padding: 20px;
+}
+h1{
+    display: inline-block;
+    width: 365px;
+    color: #fffde4;
+    text-shadow: 1px 1px 3px #252525;
+    padding-bottom: 10px;
+}
+h3{
+    text-align: center;
+    margin: 40px 0px 0px 0px;
+    color: #fffde4;
+    text-shadow: 1px 1px 3px #252525;
+}
+.register{
+    width: 320px;
+    margin: 20px auto 10px auto;
+    font-style: italic;
+}
+.register h3{
+    text-align: left;
+    font-style: normal;
+}
+input{
+    width: 300px;
+    height: 20px;
+    margin: 5px 0px;
+    font-style: italic;
+    font-weight: bold;
+}
+input[placeholder='City']{
+    width: 175px;
+    margin-right: 3px;
+}
+select{
+    height: 25px;
+    margin-right: 3px;
+}
+input[placeholder='12345']{
+    width: 60px;
+}
+input[type="submit"], button{
+    width: fit-content;
+    height: auto;
+    margin-top: 10px;
+    padding: 5px 10px;
+    background-color: #fffde4;
+    color: #5b2c24;
+    border: 1px solid #252525;
+    border-radius: 5px;
+    box-shadow: 2px 2px 2px #252525;
+    margin-left: 100px;
+    font-style: italic;
+    font-weight: bold;
+    cursor: pointer;
+}
+.login{
+    display: inline;
+    padding: 30px 0px 20px 20px;
+    border: .5px inset #252525;
+    border-right: none;
+    box-shadow: 1px 1px 1px #252525;
+}
+.login p{
+    display: inline-block;
+    width: 200px;
+    color: #fffde4;
+    font-weight: bold;
+}
+.login input{
+    width: 175px;
+}
+.login input[type='submit']{
+    width: fit-content;
+    margin: 0px 20px 0px 0px;
+    cursor: pointer;
+} 
+.error{
+    display: block;
+    width: 700px;
+    margin: 35px auto 10px auto;
+}
+.error h2{
+    text-align: center;
+    color: #fffde4;
+    font-weight: bold;
+    padding: 5px 0px;
+    text-shadow: 1px 1px 3px #252525;
+}
+.navbar{
+    display: inline-block;
+    border-bottom: 1px solid #252525;
+    margin-bottom: 20px;
+}
+.navbar h3{
+    text-align: right;
+    display: inline-block;
+    width: 445px;
+}
+.navbar a{
+    color: #fffde4;
+    text-align: right;
+    margin-left: 20px;
+}
+.post{
+    padding: 0px 30px;
+}
+.post p{
+    color: #fffde4;
+    text-shadow: 1px 1px 3px #252525;
+}
+.post input[type='submit']{
+    display: block;
+    margin: 5px 0px 5px 635px;
+    cursor: pointer;
+}
+span{
+    margin: 20px;
+}
+.messages{
+    width: 745px;
+    margin: 30px 0px 10px 30px;
+}
+.messages h3{
+    margin: 15px 0px 3px 0px;
+    text-align: left;
+}
+.messages p{
+    padding: 10px;
+    background-color: #e4cbb4;
+    color: #5b2c24;
+    font-weight: bold;
+    font-style: italic;
+    text-align: justify;
+}
+.msgid{
+    display: none;
+}
+h4{
+    margin: 10px 0px 3px 0px;
+    color: #fffde4;
+    text-shadow: 1px 1px 3px #252525;
+}
+.comments, .new_comments{
+    width: 600px;
+    padding: 0px 30px;
+    margin: 0px 0px 0px 115px;
+}
+.comments p{
+    background-color: #f1e5da;
+}
+.new_comments p{
+    color: #fffde4;
+    text-shadow: 1px 1px 3px #252525;
+    background-color: transparent;
+    font-style: normal;
+    font-weight: normal;
+    margin: 10px 0px 0px 0px;
+    padding: 0px;
+}
+.new_comments input[type='submit']{
+    display: block;
+    margin: 5px 0px 5px 490px;
+    cursor: pointer;
+}
+button{
+    margin: 10px 0px 0px 620px;
+    cursor: pointer;
+}
+button:disabled{
+    color: #d9d9d9;
+    cursor: not-allowed;
+}
