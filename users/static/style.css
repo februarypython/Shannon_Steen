@@ -1,0 +1,79 @@
+*{
+    margin: 0px;
+    padding: 0px;
+}
+
+.container{
+    width: 900px;
+    margin: 20px;
+}
+h1{
+    margin: 0px 0px 0px 8px;
+    color: #142952;
+}
+table{
+    margin: 10px;
+    border-collapse: collapse;
+}
+td, th {
+    border: 1px solid #dddddd;
+    text-align: left;
+    padding: 8px;
+}
+thead{
+    background-color: #3366cc;
+    color: white;
+    font-weight: bold;
+}
+tr:nth-child(even) {
+    background-color: #ebf0fa;
+}
+a{
+    margin: 0px 10px;
+}
+.new-user{
+    margin: 5px 10px;
+    font-size: 120%;
+    font-style: italic;
+}
+ul{
+    display: block;
+    width: 300px;
+    margin: 10px 10px 20px 10px;
+    padding: 10px;
+    list-style-type: none;
+    background: linear-gradient(to bottom, #b8effa, #f2fcfe);
+    box-shadow: 3px 3px 3px #252525;
+}
+ul li{
+    padding: 5px 0px;
+}
+form{
+    width: 300px;
+    margin: 10px 10px 20px 10px;
+    padding: 20px;
+    display: grid;
+    grid-template-columns: 115px 1fr;
+    background: linear-gradient(to bottom, #1c92d2, #f2fcfe);
+    box-shadow: 3px 3px 3px #252525;
+}
+form label, input{
+    margin: 5px;
+    padding: 5px 0px;
+}
+input[type='submit']{
+    width: fit-content;
+    padding: 5px 10px;
+    color: #142952;
+    border: 1px solid #142952;
+    border-radius: 5px;
+    box-shadow: 1px 1px 1px #252525;
+    margin: 10px auto 0px auto;
+    grid-column: 2 / 2; 
+    font-weight: bold;
+    cursor: pointer;
+}
+.errors{
+    color: red;
+    margin: 10px;
+}
