@@ -1,4 +1,4 @@
-Learning SQL/Flask Connections - Week 1 Assignment
+Learning SQL/Flask Connections - Week 7 Assignment
 Build a flask application that allows login and registration.
     1. Create a basic login and registration form
     2. Redirect user to a success page on successful login and register
@@ -17,3 +17,6 @@ Login
 Addtional features included (outside of assignment requirements):
     1. Additional Data fields (mobile, work, other phone numbers, address, city, state, zip)
     2. Once user successfully registered and/or logged in, user is able to update their specific data
+
+3.1.18 initial commit
+3.7.18 moving files to new directory, updated readme
