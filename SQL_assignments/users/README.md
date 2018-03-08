@@ -8,3 +8,6 @@ Have the following 7 routes:
     5. POST to /users/create - calls the create method to insert a new user record into our database. This POST should be sent from the form on the page /users/new. Redirect to /users/<id> once created.
     6. GET /users/<id>/destroy - calls the destroy method to remove a particular user with the given id. Redirect back to /users once deleted.
     7. POST /users/<id> - calls the update method to process the submitted form sent from /users/<id>/edit. Redirect to /users/<id> once updated.
+
+3.4.18 initial commit
+3.7.18 moving files to new directory, updated readme
