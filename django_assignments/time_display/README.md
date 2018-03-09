@@ -1,0 +1,2 @@
+Learning Django - Week 9 Assignment - Time Display
+Create a Django app called time_display. In timedisplay's controller (apps/time_display/views.py), create a method named index. When you go to the URL localhost:8000 or localhost:8000/time_display/ this should run the index method in your controller file, (views.py). Have that method render a template that displays the current date and time.
