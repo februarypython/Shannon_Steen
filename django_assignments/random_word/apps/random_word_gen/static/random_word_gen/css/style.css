@@ -1,0 +1,43 @@
+*{
+    margin: 0px;
+    padding: 0px;
+}
+.container{
+    width: 700px;
+    margin: 50px;
+    padding: 50px;
+    background-image: url('../images/random.jpg');
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+input{
+    display: block;
+    width: 85px;
+    padding: 5px;
+    margin: 10px auto;
+    border-radius: 5px;
+    font-weight: bold;
+    color: white;
+    background: black;
+    box-shadow: 3px 3px 3px white;
+    opacity: .8;
+    font-style: italic;
+}
+p, h1{
+    margin: 0px auto;
+    width: 350px;
+    opacity: .8;
+    text-align: center;
+    font-size: 110%;
+    font-weight: bold;
+    color: white;
+    background: black;
+    padding: 5px;
+    box-shadow: 3px 3px 3px white;
+}
+h1{
+    font-size: 215%;
+    padding: 35px;
+    width: 400px;
+    margin: 20px auto;
+}
