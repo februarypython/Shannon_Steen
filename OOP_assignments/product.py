@@ -10,7 +10,7 @@ Create a product class to fill the following requirements:
 
 from decimal import Decimal 
 class Product(object):
-    def __init__(self, price, name, weight, brand):
+    def __init__(self, price, name, weight, brand, **kwargs):
         self.price = price
         self.item_name = name
         self.weight = weight
@@ -56,14 +56,14 @@ headphones = Product(42.99, 'wireless headphones', '4.8 oz', 'COWIN')
 groomer = Product(10, 'pet grooming brush', '4.8 oz', 'Excell Electronics')
 projector = Product(75.18, 'LED projector', '3.3 lbs', 'DBPower')
 
-projector.add_tax(.12) 
-projector.sell().display_info()  #should change status to Sold, price to $84.20
-print "="*100
-ereader.add_tax(.16) 
-ereader.sell().returned('defective').display_info() #should change price to $0, status to defective
-print "="*100
-groomer.add_tax(8)  
-groomer.sell().returned('unopened').display_info() #should show status "for sale", price $10.80
-print "="*100
-headphones.add_tax('tax free day') 
-headphones.sell().returned('did not like').display_info() #should show status used, price should be $34.39
+# projector.add_tax(.12) 
+# projector.sell().display_info()  #should change status to Sold, price to $84.20
+# print "="*100
+# ereader.add_tax(.16) 
+# ereader.sell().returned('defective').display_info() #should change price to $0, status to defective
+# print "="*100
+# groomer.add_tax(8)  
+# groomer.sell().returned('unopened').display_info() #should show status "for sale", price $10.80
+# print "="*100
+# headphones.add_tax('tax free day') 
+# headphones.sell().returned('did not like').display_info() #should show status used, price should be $34.39
