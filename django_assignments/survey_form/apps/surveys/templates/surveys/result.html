@@ -12,8 +12,9 @@
     <script src="{% static 'surveys/script/script.js' %}"></script>
 </head>
 <body>
+    <p>Thanks for submitting this form. You have submitted this form {{request.session.counter}} times now.</p>
     <div>
-        <h2>Submitted Info</h2>
+        <h2>Submitted Information</h2>
         <ul>
             <li>Name:</li>
             <li>Dojo Location:</span></li>
