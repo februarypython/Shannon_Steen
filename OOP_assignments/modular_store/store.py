@@ -9,6 +9,8 @@ Build a store to contain our products by making a store class and putting our pr
 # Additional features outside of assignment requirements:
 #       Added info method to display store info
 #       Added brand_sale method to apply sale price to all products of given brand
+#       Added remove_sale method to remove sale price from all products of given brand
+#       Added search_brand method to search for all inventory items of given brand
 
  
 from product import Product  #import Product class (created in assignment 4)
@@ -36,13 +38,24 @@ class Store(object):
     def info(self):
         print "\n" + "="*70
         print "Name: {}\nOwner: {}\n{}".format(self.store, self.owner_name, self.address)
+        return self
 
     def inventory(self):
         self.info()
         print "\n" + "-"*25 + "Inventory" + "-"*25
         for product in range(len(self.products)):
-            print "{} {}\n\tPrice: {}, \tSale Price: {}".format(self.products[product]['brand'], self.products[product]['item'], self.products[product]['price'], self.products[product]['sale_price'])
+            print "\n{} {}\n\tPrice: {}, \tSale Price: {}".format(self.products[product]['brand'], self.products[product]['item'], self.products[product]['price'], self.products[product]['sale_price'])
         return self
+
+    def search_brand(self, brand):  #search inventory for specific brand
+        self.info()
+        found = False
+        for product in range(len(self.products)):
+            if self.products[product]['brand'] == brand:
+                print "\n{} {}\n\tPrice: {}, \tSale Price: {}".format(self.products[product]['brand'], self.products[product]['item'], self.products[product]['price'], self.products[product]['sale_price'])
+                found = True
+        if not found:
+            print "We're sorry. We do not have any {} in stock at this time.".format(brand)
 
     def brand_sale(self, brand, percent):
         if type(percent) == int:  #if percent entered as integer, convert to decimal
@@ -51,7 +64,12 @@ class Store(object):
             if self.products[product]['brand'] == brand: #apply the sale
                 self.products[product]['sale_price'] = Decimal(self.products[product]['price'] - (self.products[product]['price'] * percent)).quantize(Decimal('0.01', Decimal._round_half_up))
 
+    def remove_sale(self, brand):
+        for product in range(len(self.products)):
+            if self.products[product]['brand'] == brand: #remove the sale
+                self.products[product]['sale_price'] = 'n/a'
+
 #test code
 if __name__ == "__main__":
-    store1 = Store("Shannon's Shoemania", "Shannon Steen", "4325 S. Front St, Wilmington NC"
+    store1 = Store("Shannon's Shoemania", "Shannon Steen", "4325 S. Front St, Wilmington NC")
     store1.info()
