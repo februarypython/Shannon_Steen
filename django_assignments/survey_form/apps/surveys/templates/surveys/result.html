@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Dojo Survey Results</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'surveys/css/style.css' %}">
+    {% load static %}
+    <script src="https://code.jquery.com/jquery-3.1.0.min.js"></script>
+    <script src="{% static 'surveys/script/script.js' %}"></script>
+</head>
+<body>
+    <div>
+        <h2>Submitted Info</h2>
+        <ul>
+            <li>Name:</li>
+            <li>Dojo Location:</span></li>
+            <li>Favorite Language:</span></li>
+            <li>Comment:</span></li>
+        </ul>
+        <ul class="field-values">
+            <li>{{request.session.name}}</li>
+            <li>{{request.session.location}}</li>
+            <li>{{request.session.language}}</li>
+            <li>{{request.session.comment}}</li>
+        </ul>
+        <button>Go Back</button>
+    </div>
+</body>
+</html>
