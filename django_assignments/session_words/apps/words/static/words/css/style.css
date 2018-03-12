@@ -1,0 +1,88 @@
+*{
+    margin: 0px;
+    padding: 0px;
+}
+.container{
+    display: inline-block;
+    width: 860px;
+    margin: 30px;
+}
+h1{
+    text-align: center;
+}
+.left{
+    display: inline-block;
+    width: 430px;
+}
+.right{
+    padding: 5px 20px;
+    display: inline-block;
+    width: 380px;
+    min-height: 340px;
+    vertical-align: top;
+    margin: 20px 0px;
+    border-left: 4px solid #574d42;
+}
+.left form{
+    width: 320px;
+    margin: 20px;
+    padding: 30px;
+    background: linear-gradient(to bottom, #ece9e6, #ffffff);
+    box-shadow: 3px 3px 3px #252525;
+}
+input[name="new_word"]{
+    padding: 5px;
+    width: 300px;
+    margin-bottom: 15px;
+}
+input[type="radio"]{
+    margin-left: 10px;
+}
+input[type="checkbox"]{
+    margin: 15px 0px;
+}
+label{
+    margin-left: 5px;
+}
+input[type="submit"]{
+    width: fit-content;
+    padding: 5px 10px;
+    background-color: #b2a699;
+    color: white;
+    font-weight: bold;
+    border: 1px solid #574d42;
+    border-radius: 5px;
+    box-shadow: 2px 2px 2px #252525;
+    margin: 10px 0px 0px 100px;
+}
+.right input[type="submit"]{
+    margin-left: 175px;
+    margin-bottom: 10px;
+}
+p{
+    padding: 5px 0px;
+}
+span{
+    font-weight: bold;
+}
+.yellow{
+    color: #FDEE00;
+}
+.green{
+    color: #63775B;
+}
+.red{
+    color: #FF3800;
+}
+.blue{
+    color: #6082B6;
+}
+.brown{
+    color: #A99A86;
+}
+.purple{
+    color: #522D80;
+}
+.big{
+    font-size: 150%;
+}

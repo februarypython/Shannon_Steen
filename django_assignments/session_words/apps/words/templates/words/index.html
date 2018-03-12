@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Session Words</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'words/css/style.css' %}">
+</head>
+<body>
+    <div class="container">
+        <h1>Let's have a little colorful fun with Words.</h1>
+        <div class="left">
+            <form action="/add_word/" method='POST'>
+                {% csrf_token %}
+                <h2>Add a Word!</h2>
+                <input type="text" name="new_word" id="new_word">
+                <h3>Color your word!</h3>
+                <input type="radio" name="color" value="yellow"><label for="color">Aureolin</label><br>
+                <input type="radio" name="color" value="green"><label for="color">Axolotl</label><br>
+                <input type="radio" name="color" value="red"><label for="color">Coquelicot</label><br>
+                <input type="radio" name="color" value="blue"><label for="color">Glaucous</label><br>
+                <input type="radio" name="color" value="brown"><label for="color">Grullo</label><br>
+                <input type="radio" name="color" value="purple"><label for="color">Regalia</label><br>
+                <input type="checkbox" name="big_fonts" id="big_fonts"><label for="big_fonts">Make your word BIG!</label><br>
+                <input type="submit" value="Add Word to Session">
+            </form>            
+        </div>
+        <div class="right">
+            <form action="/clear">
+                <input type="submit" value="Clear Session">
+            </form>
+            {% for item in activities %}
+                <p><span class="{{item.color}} {{item.big_fonts}}">{{item.word}}</span> - added on {{item.time}}, {{item.date}}</p>
+            {% endfor %}
+            
+            <!-- add loop -->
+        </div>
+    </div>
+
+</body>
+</html>
