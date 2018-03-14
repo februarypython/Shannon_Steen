@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'amadon/css/style.css' %}">
+    <title>Your Amadon Cart</title>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>Welcome to Shannon's Shoemania</h1>
+            {% if request.session.cart_count == 0 %}
+                <a href="/amadon">Shop</a>
+                {% load static %}
+                <img src="{% static 'amadon/images/home.png' %}" alt="shop">
+            {% else %}
+                <a href="/amadon/checkout">Checkout</a>
+                {% load static %}
+                <img src="{% static 'amadon/images/cart.png' %}" alt="cart">
+            {% endif %}
+        </div>
+        {% if request.session.cart_count == 0 %}
+            <h2>Your shopping cart is empty!</h2>
+        {% else %}    
+            <h2>You have {{request.session.cart_count}} item(s) in your cart! <span class="cart_total">Total: ${{request.session.cart_total|floatformat:2}}</span></h2>
+            <table class="cart_prod">
+                <tr>
+                    <th>Item</th>
+                    <th>Item</th>
+                    <th>Price</th>
+                    <th>Quantity</th>
+                    <th>Options</th>
+                </tr>
+                {% for item in cart %}
+                    <tr>
+                        {% load static %}
+                        <td><img src="{{item.image}}" alt="{{item.style}}"></td>
+                        <td><p class="brand">{{item.product}}<span class="hidden">{{item.item_id}}</span></p></td>
+                        <td><p class="price">${{item.price|floatformat:2}}</p></td>
+                        <td>
+                            <form action="/amadon/update/{{item.item_id}}/" method="POST">
+                                {% csrf_token %}
+                                <input type="hidden" name="{{item.item_id}}">
+                                <input type="number" name="quantity" value="{{item.quantity}}">
+                                <input type="submit" value="Update Quantity">
+                            </form>
+                        </td>
+                        <td>
+                            <form action="/amadon/remove/{{item.item_id}}/" method="POST">
+                                {% csrf_token %}
+                                <input type="hidden" name="{{item.item_id}}">
+                                <input type="submit" value="Remove">
+                            </form>
+                        </td>
+                    </tr>
+                {% endfor %}
+            </table>
+        {% endif %}
+        <div class="footer">
+            <a href="/amadon">Continue Shopping</a>
+            {% if request.session.cart_count != 0 %}
+                <a href="/amadon/checkout">Proceed to Checkout</a>
+            {% endif %}
+        </div>
+    </div>
+</body>
+</html>

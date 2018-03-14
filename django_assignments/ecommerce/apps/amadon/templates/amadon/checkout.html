@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'amadon/css/style.css' %}">
+    <title>Amadon Checkout</title>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>Welcome to Shannon's Shoemania</h1>
+            <a href="/amadon">Shop</a>
+            {% load static %}
+            <img src="{% static 'amadon/images/home.png' %}" alt="shop">
+        </div>
+        <h2>We really appreciate your business!</h2>
+        <p>Your credit card will reflect a purchase for $<span>{{total|floatformat:2}}</span>.</p>
+        <a class="view-order" href="/amadon/order_details/{{order_id}}">View Order Details</a>
+        <p>You have ordered <span>{{ytd_count}}</span> item(s) so far and have spent a total of $<span>{{ytd_total|floatformat:2}}</span> with Shannon's Shoemania.</p>
+    </div>
+</body>
+</html>

@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'amadon/css/style.css' %}">
+    <title>Your Amadon Order Details</title>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>Welcome to Shannon's Shoemania</h1>
+            <a href="/amadon">Shop</a>
+            {% load static %}
+            <img src="{% static 'amadon/images/home.png' %}" alt="shop">
+        </div>
+        <h2>Order #{{order_id}} Details</h2>
+        {% for detail in order_details %}
+            <div class="details">
+                {% load static %}
+                <img src="{{detail.image}}" alt="{{detail.style}}">
+                <div>
+                    <p>{{detail.product}}</p>
+                    <p>Item Price: ${{detail.price|floatformat:2}}</p>
+                    <p>Quantity: {{detail.quantity}}</p>
+                </div>
+            </div>
+        {% endfor %}
+        <div class="footer">
+            <a href="/amadon">Start Shopping</a>
+        </div>
+    </div>
+</body>
+</html>

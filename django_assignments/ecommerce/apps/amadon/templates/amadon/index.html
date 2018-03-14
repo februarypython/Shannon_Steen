@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'amadon/css/style.css' %}">
+    <title>Amadon</title>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>Welcome to Shannon's Shoemania</h1>
+            <a href="/amadon/cart">View Cart</a>
+            {% load static %}
+            <img src="{% static 'amadon/images/cart.png' %}" alt="cart">
+        </div>
+        {% for item in inventory %}
+            <div class="prod">
+                {% load static %}
+                <img src="{{item.image}}" alt="{{item.style}}">
+                <p class="brand">{{item.product}}<span class="hidden">{{item.id}}</span></p>
+                <p class="desc">{{item.style}} - {{item.color}}</p>
+                <p class="price">${{item.price|floatformat:2}}</p>
+                <form action="/amadon/add/{{item.id}}/" method="POST">
+                    {% csrf_token %}
+                    <input type="hidden" name="{{item.id}}">
+                    <input type="submit" value="Add to Cart">
+                </form>
+            </div>
+        {% endfor %}
+    </div>
+</body>
+</html>
