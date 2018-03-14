@@ -1,0 +1,109 @@
+*{
+    margin: 0px;
+    padding: 0px;
+}
+.container{
+    display: inline-block;
+    width: 1000px;
+    margin: 20px;
+}
+.container h1{
+    display: inline-block;
+    width: 115px;
+    padding: 20px 0px 20px 6px;
+    font-size: 150%;
+    font-weight: bold;
+}
+input[type='number']{
+    display: inline-block;
+    width: 75px;
+    font-size: 115%;
+    font-weight: bold;
+    padding: 2px 2px 0px 5px;
+    border: 1px solid #252525;
+}
+.locations{
+    display: inline-block;
+    width: 980px;
+}
+#farm{
+    display: inline-block;
+    vertical-align: top;
+    width: 180px;
+    height: 180px;
+    padding: 20px;
+    text-align: center; 
+    background-image: url('../images/farm.jpg');
+    background-repeat: no-repeat;
+    background-size: cover;
+    margin: 0px 10px;
+}
+#cave{
+    display: inline-block;
+    vertical-align: top;
+    width: 180px;
+    height: 180px;
+    padding: 20px;
+    text-align: center; 
+    background-image: url('../images/cave.jpg');
+    background-repeat: no-repeat;
+    background-size: cover;
+    margin: 0px 10px;
+}
+#house{
+    display: inline-block;
+    vertical-align: top;
+    width: 180px;
+    height: 180px;
+    padding: 20px;
+    text-align: center; 
+    background-image: url('../images/house.jpg');
+    background-repeat: no-repeat;
+    background-size: cover;
+    margin: 0px 10px;
+}
+#casino{
+    display: inline-block;
+    vertical-align: top;
+    width: 180px;
+    height: 180px;
+    padding: 20px;
+    text-align: center; 
+    background-image: url('../images/casino.jpg');
+    background-repeat: no-repeat;
+    background-size: cover;
+    margin: 0px 10px;
+}
+h2, h3{
+    color: white;
+    margin: 20px auto;
+}
+input[type='submit']{
+    padding: 5px 10px;
+    font-weight: bold;
+    background-color: #e6b800;
+    border-radius: 5px;
+    border: 1px solid #252525;
+    box-shadow: 3px 3px 3px #252525;
+    cursor: pointer;
+}
+h4{
+    margin: 20px 10px 5px 10px;
+}
+.activities{
+    display: inline-block;
+    width: 950px;
+    min-height: 100px;
+    margin: 0px 10px;
+    padding: 10px;
+    border: 1px solid #252525;
+    box-shadow: 3px 3px 3px #252525;
+}
+.activities p.wins{
+    color: #006600;
+    font-weight: bold;
+}
+.activities p.losses{
+    color: #ff0000;
+    font-weight: bold;
+}

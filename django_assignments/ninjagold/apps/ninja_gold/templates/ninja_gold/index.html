@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'ninja_gold/css/style.css' %}">
+    <title>Ninja Gold - Django Style</title>
+</head>
+<body>
+    <div class="container">
+        <h1>Your Gold</h1>
+        <input type="number" name='gold' value={{gold}}>
+        <div class="locations">
+            <div id="farm">
+                <h2>Farm</h2>
+                <h3>(earns 10-20)</h3>
+                <form action="/process_money/farm/" method='POST'>
+                    {% csrf_token %}
+                    <input type="submit" value="Find Gold!">
+                </form>
+            </div>
+            <div id="cave">
+                <h2>Cave</h2>
+                <h3>(earns 5-10)</h3>
+                <form action="/process_money/cave/" method='POST'>
+                    {% csrf_token %}
+                    <input type="submit" value="Find Gold!">
+                </form>
+            </div>
+            <div id="house">
+                <h2>House</h2>
+                <h3>(earns 2-5)</h3>
+                <form action="/process_money/house/" method='POST'>
+                    {% csrf_token %}
+                    <input type="submit" value="Find Gold!">
+                </form>
+            </div>
+            <div id="casino">
+                <h2>Casino</h2>
+                <h3>(earns/takes 0-50)</h3>
+                <form action="/process_money/casino/" method='POST'>
+                    {% csrf_token %}
+                    <input type="submit" value="Find Gold!">
+                </form>
+            </div>
+        </div>
+        <h4>Activities:</h4>
+        <div class="activities">
+            {% for item in activities %}
+                    {% if item.class == 'wins' %}
+                        <p class="{{item.class}}">{{item.activity}}</p>
+                    {% endif %}
+            {% endfor %}
+            {% for item in activities %}
+                {% if item.class == 'losses' %}
+                    <p class="{{item.class}}">{{item.activity}}</p>
+                {% endif %}
+            {% endfor %}
+        </div>
+    </div>
+</body>
+</html>
