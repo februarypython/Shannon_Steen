@@ -13,11 +13,18 @@
     border-radius: 20px;
     /* box-shadow: 0 0 0 2px #7984a0, 0 0 0 4px #a5adc0, 0 0 0 8px #e1e4ea, 0 0 0 12px #f0f1f4; */
 }
-h1, h4{
+h1, h4, more{
     text-align: center;
 }
 h4{
+    padding: 5px 0px 15px 0px;
+    font-style: italic;
+}
+.more{
     padding: 5px 0px 25px 0px;
+    display: block;
+    text-align: center;
+    color: white;
     font-style: italic;
 }
 .leagues, .teams, .players{
