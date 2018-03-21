@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ" crossorigin="anonymous">
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'courses_app/css/style.css' %}">
+    <title>Course Index</title>
+</head>
+<body>
+    <div class="container">
+        <h1>Add a new course</h1>
+        <form action="/" method="post">
+            {% csrf_token %}
+            <label for="name">Name:</label>
+            <input type="text" name="name" id="name" placeholder="enter course name">
+            <label for="description">Description</label>
+            <textarea name="description" id="description" cols="30" rows="4" placeholder="enter description of course"></textarea>
+            <input type="submit" value="Add course">
+        </form>
+        <h1>Courses</h1>
+        <table>
+            <thead>
+                <th>Course Name</th>
+                <th>Description</th>
+                <th>Date Added</th>
+                <th>Actions</th>
+            </thead>
+            <tbody>
+                {% for course in courses %}
+                    <td>course.name</td>
+                    <td>course.description</td>
+                    <td>course.created_at</td>
+                    <td>actions link</td>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</body>
+</html>

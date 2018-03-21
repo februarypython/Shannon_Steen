@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ" crossorigin="anonymous">
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'courses_app/css/style.css' %}">
+    <title>Delete Course</title>
+</head>
+<body>
+    <h2>Are you sure you want to delete the following course?</h2>
+    <ul>
+        <li>{{course.name}}</li>
+        <li>{{course.description}}</li>
+    </ul>
+    <button type="submit">Yes, proceed with course deletion.</button>
+    <button type="submit">No, take me back.</button>
+</body>
+</html>
