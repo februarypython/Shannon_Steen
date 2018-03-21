@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <!-- Latest compiled and minified Bootstrap CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ" crossorigin="anonymous">
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'users/css/style.css' %}">
+    <title>Add New User</title>
+</head>
+<body>
+    <div class="container">
+        <h1>Add a new user</h1>
+            {% if messages %}
+                {% for msg in messages %}
+                    <p class="text-danger">{{msg}}</p>
+                {% endfor %}
+            {% endif %}
+        <form action="{% url 'create_user' %}" method="POST">
+            {% csrf_token %}
+            <label for="first_name">First Name:</label>
+            <input type="text" name="first_name" id="first_name" placeholder="enter first name" value="{{first_name}}">
+            <label for="last_name">Last Name:</label>
+            <input type="text" name="last_name" id="last_name" placeholder="enter last name" value="{{last_name}}">
+            <label for="email">Email:</label>
+            <input type="text" name="email" id="email" placeholder="enter email address" value="{{email}}">
+            <input type="submit" value="Add New User">
+        </form>
+        <a href="{% url 'user_index' %}">Go Back</a>
+    </div>
+</body>
+</html>

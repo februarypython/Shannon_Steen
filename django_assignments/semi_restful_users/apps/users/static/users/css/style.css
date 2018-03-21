@@ -1,0 +1,58 @@
+.container{
+    padding: 25px;
+}
+thead tr{
+    font-weight: bold;
+}
+.table-striped tbody tr:nth-of-type(odd) {
+    background-color: rgba(133, 173, 173, 0.2);
+}
+form{
+    width: 365px;
+    margin: 20px 0px;
+    padding: 20px;
+    display: grid;
+    grid-template-columns: 115px 1fr;
+    background: linear-gradient(to bottom, #85adad, #f2fcfe);
+    box-shadow: 3px 3px 3px #252525;
+}
+form label, input{
+    margin: 5px;
+    padding: 5px 0px;
+}
+input[type='submit']{
+    width: fit-content;
+    padding: 5px 10px;
+    color: #334d4d;
+    border: 1px solid #334d4d;
+    border-radius: 5px;
+    box-shadow: 1px 1px 1px #252525;
+    margin: 10px auto 0px auto;
+    grid-column: 2 / 2; 
+    font-weight: bold;
+    cursor: pointer;
+}
+.spacer{
+    margin: 0px 10px;
+}
+ul {
+    display: block;
+    width: 320px;
+    margin: 10px 0px;
+    padding: 25px;
+    list-style-type: none;
+    background: linear-gradient(to bottom, #85adad, #f2fcfe);
+    box-shadow: 3px 3px 3px #252525;
+}
+ul li{
+    padding: 5px 0px;
+}
+.emphasis{
+    margin-left: 15px;
+    font-weight: bold;
+    font-style: italic;
+    color: #334d4d;
+}
+h1{
+    color: #334d4d;
+}

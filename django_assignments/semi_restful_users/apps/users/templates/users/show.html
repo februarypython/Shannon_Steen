@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <!-- Latest compiled and minified Bootstrap CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ" crossorigin="anonymous">
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'users/css/style.css' %}">
+    <title>User {{user.id}} Details</title>
+</head>
+<body>
+    <div class="container">
+        <h1>User {{user.id}}</h1>
+        <ul>
+            <li class="text-muted">Full Name:<span class="emphasis">{{user.first_name}} {{user.last_name}}</span></li>
+            <li class="text-muted">Email:<span class="emphasis">{{user.email}}</span></li>
+            <li class="text-muted">Created:<span class="emphasis">{{user.created_at}}</span></li>
+        </ul>
+        <a href="{% url 'edit_user' user_id=user.id %}">Edit</a><span class="spacer">|</span><a href="{% url 'destroy_user' user_id=user.id %}">Delete</a><span class="spacer">|</span><a href="{% url 'user_index' %}">Go Back</a>
+    </div>
+</body>
+</html>
