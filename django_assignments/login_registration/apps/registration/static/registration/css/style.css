@@ -1,0 +1,40 @@
+.container-fluid, .container{
+    padding: 20px;
+    background: linear-gradient(to bottom, #1f1c2c, #928dab);
+}
+.container{
+    color: white;
+    padding: 35px;
+}
+.registration{
+    margin: 0px auto;
+    width: 425px;
+    padding: 20px;
+    display: grid;
+    grid-template-columns: 175px 1fr;
+}
+form label, input{
+    margin: 5px;
+}
+form label{
+    text-align: right;
+    margin-right: 10px;
+    color: white;
+    font-weight: bold;
+}
+input[type='submit']{
+    width: fit-content;
+    padding: 5px 10px;
+    color: #1f1c2c;
+    border: 1px solid #1f1c2c;
+    border-radius: 5px;
+    box-shadow: 1px 1px 1px #252525;
+    margin: 10px auto 0px auto;
+    grid-column: 2 / 2; 
+    font-weight: bold;
+    cursor: pointer;
+}
+h3{
+    color: white;
+    text-align: center;
+}
