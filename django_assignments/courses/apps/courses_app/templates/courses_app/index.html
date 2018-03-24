@@ -12,7 +12,12 @@
 <body>
     <div class="container">
         <h1>Add a new course</h1>
-        <form action="/" method="post">
+        {% if messages %}
+            {% for msg in messages %}
+                <p class="text-danger">{{msg}}</p> 
+            {% endfor %}
+        {% endif %}
+        <form action="{% url 'create_course' %}" method="post">
             {% csrf_token %}
             <label for="name">Name:</label>
             <input type="text" name="name" id="name" placeholder="enter course name">
@@ -21,7 +26,7 @@
             <input type="submit" value="Add course">
         </form>
         <h1>Courses</h1>
-        <table>
+        <table class="table table-striped table-bordered">
             <thead>
                 <th>Course Name</th>
                 <th>Description</th>
@@ -30,10 +35,12 @@
             </thead>
             <tbody>
                 {% for course in courses %}
-                    <td>course.name</td>
-                    <td>course.description</td>
-                    <td>course.created_at</td>
-                    <td>actions link</td>
+                    <tr>
+                        <td>{{course.course_name}} {{course.id}}</td>
+                        <td>{{course.course_desc}}</td>
+                        <td>{{course.created_at}}</td>
+                        <td><a href="{% url 'show_course' course_id=course.id %}">Comments</a><span class="spacer">|</span><a href="{% url 'confirm_remove' course_id=course.id %}">Remove</a></td>
+                    </tr>
                 {% endfor %}
             </tbody>
         </table>

@@ -10,12 +10,14 @@
     <title>Delete Course</title>
 </head>
 <body>
-    <h2>Are you sure you want to delete the following course?</h2>
-    <ul>
-        <li>{{course.name}}</li>
-        <li>{{course.description}}</li>
-    </ul>
-    <button type="submit">Yes, proceed with course deletion.</button>
-    <button type="submit">No, take me back.</button>
+    <div class="container">
+        <h2>Are you sure you want to delete the following course?</h2>
+        <div class="course-details">
+            <h4>{{course.course_name}}</h4>
+            <p>{{course.course_desc}}</p>
+            <a class="btn-info" href="{% url 'course_index' %}">No, take me back.</a>        
+            <a class="btn-danger" href="{% url 'destroy_course' course_id=course.id %}">Yes, proceed with course deletion.</a>
+        </div>
+    </div>
 </body>
 </html>
