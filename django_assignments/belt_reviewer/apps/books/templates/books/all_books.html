@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ" crossorigin="anonymous">
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'books/css/style.css' %}">
+    <title>Books Home</title>
+</head>
+<body>
+    <nav class="navbar fixed-top navbar navbar-toggleable-md navbar-inverse bg-inverse">
+            <a class="nav navbar-nav navbar-brand" href="{% url 'book_index' %}">The Book Club</a>
+            <ul class="nav navbar-nav mr-auto">
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'new_book' %}">Add Book and Review</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'logout' %}">Logout</a>
+                </li>
+            </ul>
+    </nav>
+    <div class="container-fluid">
+        <h3>Welcome {{user.name}}</h3>
+        <div class="reviews col-sm-12">
+            <div class="book-review-list col-sm-8">
+                <h2>Recent Book Reviews</h2>
+                {% for review in last_reviewed %}
+                    <a href="{% url 'book_details' book_id=review.book.id %}">{{review.book.title}}</a>
+                    <p>Rating: {{review.rating}}</p>
+                    <p>{{review.reviewer.alias}} says:  {{review.review}}</p>
+                    <p>Posted on {{review.created_at}}</p>
+                {% endfor %}
+            </div>
+            <div class="other-reviews col-sm-8">
+                <h2>Other Book with Reviews:</h2>
+                <ul class="other-reviews-list">
+                    {% for book in other_reviews %}
+                        <li><a href="{% url 'book_details' book_id=book.book_id %}">{{book.book.title}}</a></li>
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

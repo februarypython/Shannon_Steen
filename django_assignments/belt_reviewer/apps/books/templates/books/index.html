@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ" crossorigin="anonymous">
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'books/css/style.css' %}">
+    <title>Welcome</title>
+</head>
+<body>
+    <div class="container-fluid">        
+        <h1>Welcome to the Book Review!</h1>
+        <!-- validation error messages -->
+        {% if messages %}
+            {% for msg in messages %}
+                <p class="text-danger">{{msg}}</p>
+            {% endfor %}
+        {% endif %}
+        <form class="registration" action="{% url 'create_user' %}" method="POST">
+            {% csrf_token %}
+            <fieldset>
+                <legend>Please Register:</legend>
+                <label for="name">Full Name:</label>
+                <input type="text" name="name" id="name" value="{{request.session.newusername}}">
+                <label for="alias">Alias:</label>
+                <input type="text" name="alias" id="alias" value="{{request.session.newuseralias}}">
+                <label for="email">Email:</label>
+                <input type="email" name="email" value="{{request.session.newuseremail}}">
+                <label for="password">Create a Password:</label>
+                <input type="password" name="password">
+                <label for="pwconf">Confirm Password:</label>
+                <input type="password" name="pwconf" id="pwconf">
+                <input type="submit" value="Register">
+            </fieldset>
+        </form>
+        <form class="login" action="{% url 'login_user' %}" method="POST">
+            {% csrf_token %}
+            <fieldset>
+                <legend>Login:</legend>
+                <label for="email">Email:</label>
+                <input type="email" name="email" value="{{request.session.form_email}}">
+                <label for="password">Password:</label>
+                <input type="password" name="password">
+                <input type="submit" value="Login">
+            </fieldset>
+        </form>
+    </div>
+</body>
+</html>
