@@ -1,0 +1,66 @@
+{% extends "users/layout.html" %}
+
+{% block title %}{{page_title}}{% endblock %}
+
+{% block content %}
+        {% if permission == 'admin' %}
+        <h2>Edit User {{user_info.id}}<a class="btn btn-primary float-right" href="{% url 'admin_dashboard' %}">Return to Dashboard</a></h2>
+        {% else%}
+        <h2>Edit Profile</h2>
+        {% endif %}
+        <!-- validation error messages -->
+        <div class="errors">
+            {% if messages %}
+                {% for msg in messages %}
+                    <p class="text-danger">{{msg}}</p>
+                {% endfor %}
+            {% endif %}
+        </div>
+
+        <form class="edit" action="{% url 'update' user_id=user_info.id %}" method="POST">
+            {% csrf_token %}
+            <fieldset>
+                <legend>Edit Information:</legend>
+                <label for="email">Email:</label>
+                <input type="email" name="email" value="{{user_info.email}}">
+                <label for="first_name">First Name:</label>
+                <input type="text" name="first_name" id="first_name" value="{{user_info.first_name}}">
+                <label for="last_name">Last Name:</label>
+                <input type="text" name="last_name" id="last_name" value="{{user_info.last_name}}">
+                {% if permission == 'admin' %}
+                <label for="user_level">User Level:</label>
+                <select name="user_level" id="user_level">
+                    <option value="user_info.user_level" selected></option>
+                    <option value="1">Normal</option>
+                    <option value="9">Admin</option>
+                </select>
+                {% endif %}
+                
+                <input class="float-right" type="submit" value="Save">
+            </fieldset>
+        </form>
+        <form class="change-pw" action="{% url 'update' user_id=user_info.id %}" method="POST">
+            {% csrf_token %}
+            <fieldset>
+                <legend>Change Password:</legend>
+                <label for="password">Create a Password:</label>
+                <input type="password" name="password" data-toggle="tooltip" data-placement="right" title="Password must be at least 8 characters, include one Uppercase letter and one number.">
+                <label for="pwconf">Confirm Password:</label>
+                <input type="password" name="pwconf" id="pwconf">
+                <input class="float-right" type="submit" value="Change Password">
+            </fieldset>
+        </form>   
+
+        {% if user_info.id == request.session.user_id %}
+        <form class="add-desc" action="{% url 'update' user_id=user_info.id %}" method="POST">
+            {% csrf_token %}
+            <fieldset>
+                <legend>Edit Description:</legend>
+                <textarea class="form-control" name="desc" id="desc" rows="4"></textarea><br>
+                <input class="float-right" type="submit" value="Save">
+            </fieldset>
+        </form>
+        {% endif %}
+
+
+{% endblock %}

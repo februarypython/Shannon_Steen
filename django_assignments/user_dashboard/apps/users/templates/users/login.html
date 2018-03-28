@@ -1,0 +1,24 @@
+{% extends "users/layout.html" %}
+
+{% block title %}Signin Page{% endblock %}
+
+{% block content %}
+        <h2>Sign in</h2>
+        <div class="errors">
+            {% if messages %}
+                {% for msg in messages %}
+                    <p class="text-danger">{{msg}}</p>
+                {% endfor %}
+            {% endif %}
+        </div>
+        <!-- validation error messages -->
+        <form class="login" action="{% url 'login' %}" method="POST">
+            {% csrf_token %}
+            <label for="email">Email:</label>
+            <input type="email" name="email" value="{{request.session.form_email}}">
+            <label for="password">Password:</label>
+            <input type="password" name="password">
+            <input type="submit" value="Sign in">
+        </form>
+        <a class="nav-link" href="{% url 'register' %}">Don't have an account? Register</a>
+{% endblock %}

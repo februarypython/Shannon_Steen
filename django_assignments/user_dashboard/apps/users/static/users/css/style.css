@@ -1,0 +1,86 @@
+.bg-dark {
+    background-color: #343A5C!important;
+}
+.jumbotron {
+    padding: 2rem 2rem;
+}
+.btn-primary{
+    background-color: #343A5C;
+    border-color: #343A5C;
+}
+.container-fluid{
+    padding: 25px;
+}
+h3 a{
+    color: black;
+}
+fieldset {
+    border: 1px dotted #343A5C !important;
+    padding: 0 1.4em 1.4em 1.4em !important;
+    margin: 0 0 1.5em 0 !important;
+    -webkit-box-shadow:  0px 0px 0px 0px #000;
+    box-shadow:  0px 0px 0px 0px #000;
+}
+form{
+    vertical-align: top;
+    display: inline-block;
+    width: 45%;
+    margin: 20px;
+}
+.add-desc{
+    width: 90%;
+}
+legend{
+    width:auto; /* Or inherit */
+    padding:0 10px; /* To give a bit of padding on the left and right */
+    border-bottom:none;
+    color: #343A5C;
+    font-style: italic;
+}
+/* .registration, .login{
+    width: 425px;
+    margin: 20px 0px;
+    padding: 20px;
+    display: grid;
+    grid-template-columns: 150px 1fr;
+    border: .5px dotted #343A5C;
+    box-shadow: 3px 3px 3px #343A5C;
+} */
+form label, input, select{
+    width: 95%;
+    margin: 5px;
+    padding: 5px 0px;
+}
+.tooltip {
+    font-family: Georgia;
+    font-size: 14px;
+}
+.tooltip .tooltip-inner {
+background-color: #343A5C;
+min-width: 250px;
+}
+input[type='submit']{
+    width: fit-content;
+    padding: 5px 10px;
+    color: #343A5C;
+    border: 1px solid #343A5C;
+    border-radius: 5px;
+    box-shadow: 1px 1px 1px #252525;
+    margin: 10px auto 0px auto;
+    grid-column: 2 / 2; 
+    font-weight: bold;
+    cursor: pointer;
+}
+thead tr{
+    font-weight: bold;
+}
+.table-striped tbody tr:nth-of-type(odd) {
+    background-color: rgba(52, 58, 92, 0.2);
+}
+.spacer{
+    margin: 0px 10px;
+}
+footer{
+    color: #343A5C;
+    font-style: italic;
+}
