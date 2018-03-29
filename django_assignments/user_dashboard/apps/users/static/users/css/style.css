@@ -24,7 +24,7 @@ fieldset {
 form{
     vertical-align: top;
     display: inline-block;
-    width: 45%;
+    width: 40%;
     margin: 20px;
 }
 .add-desc{
@@ -37,15 +37,6 @@ legend{
     color: #343A5C;
     font-style: italic;
 }
-/* .registration, .login{
-    width: 425px;
-    margin: 20px 0px;
-    padding: 20px;
-    display: grid;
-    grid-template-columns: 150px 1fr;
-    border: .5px dotted #343A5C;
-    box-shadow: 3px 3px 3px #343A5C;
-} */
 form label, input, select{
     width: 95%;
     margin: 5px;
@@ -71,11 +62,18 @@ input[type='submit']{
     font-weight: bold;
     cursor: pointer;
 }
+.table{
+    margin-top: 30px;
+}
 thead tr{
     font-weight: bold;
 }
 .table-striped tbody tr:nth-of-type(odd) {
     background-color: rgba(52, 58, 92, 0.2);
+}
+table .logged-in-user{
+    font-weight: bold;
+    font-style: italic;
 }
 .spacer{
     margin: 0px 10px;

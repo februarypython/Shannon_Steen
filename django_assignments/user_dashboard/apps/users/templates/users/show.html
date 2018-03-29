@@ -4,7 +4,7 @@
 
 {% block content %}
         {% if permission == 'admin' %}
-        <h3>Manage Users</h3>
+        <h3>Manage Users<a class="btn btn-primary float-right" href="{% url 'new_user' %}">Add a new user</a></h3>
         {% else %}
         <h3>All Users</h3>    
         {% endif %}
@@ -23,20 +23,17 @@
         <tbody>
             {% for user in users %}
             <tr>
-                <td>{{user.id}}</td>
-                <td><a href="{% url 'show_user' user_id=user.id %}">{{user.first_name}} {{user.last_name}}</a></td>
-                <td>{{user.email}}</td>
-                <td>{{user.created_at|date:"N j, Y"}}</td>
-                <td>{% if user.user_level == 9 %}admin{% else%}normal{% endif %}</td>
+                <td{% if user.id == request.session.user_id %} class="logged-in-user" {% endif %}>{{user.id}}</td>
+                <td{% if user.id == request.session.user_id %} class="logged-in-user" {% endif %}><a href="{% url 'show_user' user_id=user.id %}">{{user.first_name}} {{user.last_name}}</a></td>
+                <td{% if user.id == request.session.user_id %} class="logged-in-user" {% endif %}>{{user.email}}</td>
+                <td{% if user.id == request.session.user_id %} class="logged-in-user" {% endif %}>{{user.created_at|date:"N j, Y"}}</td>
+                <td{% if user.id == request.session.user_id %} class="logged-in-user" {% endif %}>{% if user.user_level == 9 %}admin{% else%}normal{% endif %}</td>
                 {% if permission == 'admin' %}
-                <td><a href="{% url 'admin_edit' user_id=user.id %}">Edit</a><span class="spacer">|</span><a href="{% url 'show_user' user_id=user.id %}">Remove</a></td>
+                <td{% if user.id == request.session.user_id %} class="logged-in-user" {% endif %}><a href="{% url 'edit' user_id=user.id %}">Edit</a><span class="spacer">|</span><a href="{% url 'show_user' user_id=user.id %}">Remove</a></td>
                 {% endif %}
             </tr>
             {% endfor %}
         </tbody>
     </table>
-        {% if permission == 'admin' %}
-        <a href="{% url 'new_user' %}">Add a new user</a> 
-        {% endif %}
         
 {% endblock %}

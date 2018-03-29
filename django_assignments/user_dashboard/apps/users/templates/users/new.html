@@ -4,7 +4,7 @@
 
 {% block content %}
     {% if request.session.user_id %}
-        <h2 >Add a new user<a class="btn btn-primary float-right" href="{% url 'admin_dashboard' %}">Return to Dashboard</a></h2>
+        <h2 >Add a new user<a class="btn btn-primary float-right" href="{% url 'dashboard' %}">Return to Dashboard</a></h2>
     {% else%}
         <h2>Register</h2>
     {% endif %}
@@ -20,12 +20,12 @@
         <form class="registration" action="{% url 'create_user' %}" method="POST">
             {% csrf_token %}
             <fieldset>
+                <label for="email">Email:</label>
+                <input type="email" name="email" value="{{request.session.formdata.email}}">
                 <label for="first_name">First Name:</label>
                 <input type="text" name="first_name" id="first_name" value="{{request.session.formdata.first_name}}">
                 <label for="last_name">Last Name:</label>
                 <input type="text" name="last_name" id="last_name" value="{{request.session.formdata.last_name}}">
-                <label for="email">Email:</label>
-                <input type="email" name="email" value="{{request.session.formdata.email}}">
                 <label for="password">Create a Password:</label>
                 <input type="password" name="password" data-toggle="tooltip" data-placement="right" title="Password must be at least 8 characters, include one Uppercase letter and one number.">
                 <label for="pwconf">Confirm Password:</label>

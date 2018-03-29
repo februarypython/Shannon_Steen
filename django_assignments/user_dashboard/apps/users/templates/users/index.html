@@ -13,8 +13,7 @@
     <div class="row">
         <div class="col-sm-4">
             <h3>
-                <a {% if request.session.user_id %} href="{% url 'user_dashboard' %}" {% else %} href="{% url 'register' %}"                  
-                {% endif %}>Manage Users</a>
+                <a href="{% url 'dashboard' %}">Manage Users</a>
             </h3>
             <p>Using this application, you'll learn how to add, remove, and edit users for the application.</p>
         </div>
@@ -26,7 +25,7 @@
         </div>
         <div class="col-sm-4">
             <h3>
-                <a href="">Edit User Information</a>
+                <a href="{% url 'dashboard' %}">Edit User Information</a>
             </h3> 
             <p>Admins will be able to edit another user's information (email address, first name, last name, etc).</p>
         </div>

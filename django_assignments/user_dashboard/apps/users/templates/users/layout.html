@@ -19,15 +19,21 @@
         </button>
         <div class="collapse navbar-collapse" id="navbarToggle">
             <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
+                {% if request.session.user_id %}
+                <li class="nav-item">
+                    <a class="nav-link active" href="{% url 'homepage' %}">Welcome {{request.session.name}}</a>
+                </li>
+                {% else %}
                 <li class="nav-item active">
                     <a class="nav-link" href="{% url 'homepage' %}">Home</a>
                 </li>
+                {% endif %}
                 {% if request.session.user_id %}
                 <li class="nav-item">
-                    <a class="nav-link" href="{% if permission == 'admin' %}{% url 'admin_dashboard'%}{% else %}{% url 'user_dashboard'%}{% endif %}">Dashboard</a>
+                    <a class="nav-link" href="{% url 'dashboard' %}">Dashboard</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="{% url 'edit_user' %}">Profile</a>
+                    <a class="nav-link" href="{% url 'edit' %}">Profile</a>
                 </li>
                 {% endif %}
             </ul>
