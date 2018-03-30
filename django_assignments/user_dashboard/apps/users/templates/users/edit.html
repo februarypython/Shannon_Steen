@@ -7,10 +7,10 @@
         {% if path == "/users/edit/" %}
         <h2>Edit Profile</h2>
         {% else %}
-        <h2>Edit User {{user_info.id}}<a class="btn btn-primary float-right" href="{% url 'dashboard' %}">Return to Dashboard</a></h2>
+        <h2>Edit User {{user_info.id}}<a class="btn btn-primary float-right" href="{% url 'users:dashboard' %}">Return to Dashboard</a></h2>
         {% endif %}
 
-        <form class="edit" action="{% url 'update' user_id=user_info.id %}" method="POST">
+        <form class="edit" action="{% url 'users:update' user_id=user_info.id %}" method="POST">
             <!-- validation error messages -->
             <div class="errors">
             {% if messages %}
@@ -43,7 +43,7 @@
             </fieldset>
         </form>
 
-        <form class="change-pw" action="{% url 'update' user_id=user_info.id %}" method="POST">
+        <form class="change-pw" action="{% url 'users:update' user_id=user_info.id %}" method="POST">
             <!-- validation error messages -->
             <div class="errors">
             {% if messages %}
@@ -68,7 +68,7 @@
         </form>   
 
         {% if user_info.id == request.session.user_id %}
-        <form class="add-desc" action="{% url 'update' user_id=user_info.id %}" method="POST">
+        <form class="add-desc" action="{% url 'users:update' user_id=user_info.id %}" method="POST">
             <div class="errors">
             {% if messages %}
                 {% for msg in messages %}

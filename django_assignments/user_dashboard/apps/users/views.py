@@ -4,13 +4,13 @@ from __future__ import unicode_literals
 from django.shortcuts import render, redirect, HttpResponse
 from django.urls import reverse
 from django.contrib import messages  #for flashing error messages
-from .user_models import User  #import user model
+from .models import User  #import user model
 
 #Create your views here.
 
 #show home page
-def index(request):
-    return render(request, 'users/index.html')
+def home(request):
+    return render(request, 'users/homepage.html')
 
 #show add_new form
 def register(request):
@@ -27,22 +27,22 @@ def login(request):
         if len(errors): #if there are any errors return user to login to correct
             for tag, error in errors.items():
                 messages.error(request, error, extra_tags = tag)
-            return redirect(reverse('login'))
+            return redirect(reverse('users:login'))
         else: #login user
             user = User.objects.get(email=request.POST['email'])
             print user
             request.session['user_id'] = user.id
             request.session['name'] = user.first_name
             request.session['license'] = user.user_level
-            return redirect(reverse('dashboard'))
+            return redirect(reverse('users:dashboard'))
     else:
         return render(request, 'users/login.html')
 
-#show 
-def show(request):
+#show all users
+def index(request):
     #ensure user is in session
     if 'user_id' not in request.session:
-        return redirect(reverse('homepage'))
+        return redirect(reverse('users:homepage'))
     if request.session['license'] == 9:  #user is an admin, tweak page to show admin options
         page_title = "Admin Dashboard"
         permission = "admin"
@@ -54,35 +54,27 @@ def show(request):
         'permission': permission, 
         'page_title':  page_title,
     }
-    return render(request, 'users/show.html', context)
+    return render(request, 'users/index.html', context)
 
-def show_user(request, user_id):
+def show(request, user_id):
     #ensure user is in session
     if 'user_id' not in request.session:
-        return redirect(reverse('homepage'))
-    if request.session['license'] == 9:  #user is an admin, tweak page to show admin options
-        page_title = "Admin Dashboard"
-        permission = "admin"
-    else:
-        page_title = "User Dashboard"
-        permission = "user"
+        return redirect(reverse('users:homepage'))
     context = {
-        'users': User.objects.get(id=user_id),
-        'permission': permission, 
-        'page_title':  page_title,
+        'user': User.objects.get(id=user_id),
     }
-    return render(request, 'users/index.html', context)
+    return render(request, 'users/show.html', context)
 
 #show add_new form
 def new(request):
     if 'user_id' not in request.session:
-        return redirect(reverse('homepage'))
+        return redirect(reverse('users:homepage'))
     context = {
         'page_title': 'New User',
     }
     return render(request, 'users/new.html', context)
 
-#create new 
+#create new user
 def create(request):
     previous_page = request.META['HTTP_REFERER']
     print previous_page
@@ -96,17 +88,17 @@ def create(request):
     else: #add new user
         user = User.objects.create_user(request.POST)
         del request.session['formdata'] 
-        if 'user_id' not in session:  #new user registering for site
+        if 'user_id' not in request.session:  #new user registering for site
             request.session['user_id'] = user.id
             request.session['name'] = user.first_name
             request.session['license'] = user.user_level
-        return redirect(reverse('dashboard'))
+        return redirect(reverse('users:dashboard'))
 
 #show edit form
 def edit(request, **kwargs):
     chosen_path = request.path
     if 'user_id' not in request.session:
-        return redirect(reverse('homepage'))
+        return redirect(reverse('users:homepage'))
     if request.session['license'] == 9:  #user is an admin, tweak page to show admin options
         page_title = "Edit User"
         permission = "admin"
@@ -129,7 +121,7 @@ def edit(request, **kwargs):
 def update(request, user_id):
     #ensure user is in session
     if 'user_id' not in request.session:
-        return redirect(reverse('homepage'))
+        return redirect(reverse('users:homepage'))
     previous_page = request.META['HTTP_REFERER']
     #determine which form was updated and validate data
     if 'update-info' in request.POST:  #this is the edit info form
@@ -156,18 +148,18 @@ def update(request, user_id):
         messages.success(request, "User Description has been updated.", 'desc_success')
     return redirect(previous_page)
 
-#delete a review owned by user
-def destroy(request, review_id, book_id):
+#delete a user
+def destroy(request, user_id):
     #ensure user is in session
     if 'user_id' not in request.session:
-        return redirect(reverse('homepage'))
-    WHAT = MODEL.objects.get(id=review_id)
-    WHAT.delete()
-    return redirect(reverse('show_details', kwargs={'IF_NEEDED':arg_id}))
+        return redirect(reverse('users:homepage'))
+    user = User.objects.get(id=user_id)
+    user.delete()
+    return redirect(reverse('users:dashboard'))
 
 #log user out
 def logout(request):
     #clear all session information
     for i in request.session.keys():
         del request.session[i]
-    return redirect(reverse('homepage'))
+    return redirect(reverse('users:homepage'))

@@ -27,7 +27,7 @@ form{
     width: 40%;
     margin: 20px;
 }
-.add-desc{
+.add-desc, .add-msg{
     width: 90%;
 }
 legend{
@@ -77,6 +77,17 @@ table .logged-in-user{
 }
 .spacer{
     margin: 0px 10px;
+}
+dt, dd{
+    display: inline-block;
+    font-weight: normal;
+}
+dt{
+    width: 110px;
+}
+dd {
+margin: 0 0 0 30px;
+padding: 0 0 0.5em 0;
 }
 footer{
     color: #343A5C;

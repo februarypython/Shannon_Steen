@@ -12,7 +12,7 @@
             {% endif %}
         </div>
         <!-- validation error messages -->
-        <form class="login" action="{% url 'login' %}" method="POST">
+        <form class="login" action="{% url 'users:login' %}" method="POST">
             {% csrf_token %}
             <fieldset>
                 <label for="email">Email:</label>
@@ -22,5 +22,5 @@
                 <input class="float-right" type="submit" value="Sign in">
             </fieldset>
         </form>
-        <a class="nav-link" href="{% url 'register' %}">Don't have an account? Register</a>
+        <a class="nav-link" href="{% url 'users:register' %}">Don't have an account? Register</a>
 {% endblock %}

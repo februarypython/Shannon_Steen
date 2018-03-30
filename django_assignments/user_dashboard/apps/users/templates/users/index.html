@@ -1,33 +1,39 @@
 {% extends "users/layout.html" %}
 
-{% block title %}Home Page{% endblock %}
+{% block title %}{{page_title}}{% endblock %}
 
 {% block content %}
-    <div class="jumbotron">
-        <h1 class="display-3">Welcome to the Test!</h1>
-        <p class="lead">We're going to build a cool application using an MVC framework! This application was built with the Village88 folks!</p>
-        <p class="lead">
-            <a class="btn btn-primary btn-md" href="{% url 'register' %}" role="button">Start</a>
-        </p>
-    </div>
-    <div class="row">
-        <div class="col-sm-4">
-            <h3>
-                <a href="{% url 'dashboard' %}">Manage Users</a>
-            </h3>
-            <p>Using this application, you'll learn how to add, remove, and edit users for the application.</p>
-        </div>
-        <div class="col-sm-4">
-            <h3>
-                <a href="">Leave Messages</a>
-            </h3>
-            <p>Users will be able to leave a message to another user using this application.</p>
-        </div>
-        <div class="col-sm-4">
-            <h3>
-                <a href="{% url 'dashboard' %}">Edit User Information</a>
-            </h3> 
-            <p>Admins will be able to edit another user's information (email address, first name, last name, etc).</p>
-        </div>
-    </div>
+        {% if permission == 'admin' %}
+        <h3>Manage Users<a class="btn btn-primary float-right" href="{% url 'users:new_user' %}">Add a new user</a></h3>
+        {% else %}
+        <h3>All Users</h3>    
+        {% endif %}
+
+        <table class="table table-striped table-bordered table-hover table-responsive-sm">
+            <thead>
+                <td>ID</td>
+                <td>Name</td>
+                <td>Email</td>
+                <td>Created</td>
+                <td>User Level</td>
+            {% if permission == 'admin' %}
+            <td>Actions</td>
+            {% endif %}
+        </thead>
+        <tbody>
+            {% for user in users %}
+            <tr>
+                <td{% if user.id == request.session.user_id %} class="logged-in-user" {% endif %}>{{user.id}}</td>
+                <td{% if user.id == request.session.user_id %} class="logged-in-user" {% endif %}><a href="{% url 'users:show' user_id=user.id %}">{{user.first_name}} {{user.last_name}}</a></td>
+                <td{% if user.id == request.session.user_id %} class="logged-in-user" {% endif %}>{{user.email}}</td>
+                <td{% if user.id == request.session.user_id %} class="logged-in-user" {% endif %}>{{user.created_at|date:"N j, Y"}}</td>
+                <td{% if user.id == request.session.user_id %} class="logged-in-user" {% endif %}>{% if user.user_level == 9 %}admin{% else %}normal{% endif %}</td>
+                {% if permission == 'admin' %}
+                <td{% if user.id == request.session.user_id %} class="logged-in-user" {% endif %}><a href="{% url 'users:edit' user_id=user.id %}">Edit</a><span class="spacer">|</span><a href="{% url 'users:destroy' user_id=user.id %}">Remove</a></td>
+                {% endif %}
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+        
 {% endblock %}
