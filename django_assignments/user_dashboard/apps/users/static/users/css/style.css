@@ -121,3 +121,9 @@ footer{
     border-top: 1.5px solid #dee1ed;
     border-bottom: 1.5px solid #dee1ed;
 }
+#private, label[for='private']{
+    display: inline;
+    width: fit-content;
+    font-style: italic;
+    color: #8d94bf;
+}
