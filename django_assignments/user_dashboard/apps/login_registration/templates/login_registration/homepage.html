@@ -1,0 +1,33 @@
+{% extends "users/layout.html" %}
+
+{% block title %}Home Page{% endblock %}
+
+{% block content %}
+    <div class="jumbotron">
+        <h1 class="display-3">Welcome to the Test!</h1>
+        <p class="lead">We're going to build a cool application using an MVC framework! This application was built with the Village88 folks!</p>
+        <p class="lead">
+            <a class="btn btn-primary btn-md" href="{% url 'login_registration:register' %}" role="button">Start</a>
+        </p>
+    </div>
+    <div class="row">
+        <div class="col-sm-4">
+            <h3>
+                <a href="{% url 'login_registration:dashboard' %}">Manage Users</a>
+            </h3>
+            <p>Using this application, you'll learn how to add, remove, and edit users for the application.</p>
+        </div>
+        <div class="col-sm-4">
+            <h3>
+                <a href="{% url 'login_registration:dashboard' %}">Leave Messages</a>
+            </h3>
+            <p>Users will be able to leave a message to another user using this application.</p>
+        </div>
+        <div class="col-sm-4">
+            <h3>
+                <a href="{% url 'login_registration:dashboard' %}">Edit User Information</a>
+            </h3> 
+            <p>Admins will be able to edit another user's information (email address, first name, last name, etc).</p>
+        </div>
+    </div>
+{% endblock %}

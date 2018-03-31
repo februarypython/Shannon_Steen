@@ -18,7 +18,8 @@ from django.contrib import admin
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
-    url(r'^', include('apps.users.urls', namespace='users')),
+    url(r'^', include('apps.login_registration.urls', namespace='login_registration')),
     url(r'^users/', include('apps.users.urls', namespace='users')),
-    url(r'^posts/', include('apps.posts.urls', namespace='posts')),
+    url(r'^communiques/', include('apps.communiques.urls', namespace='communiques')),
+    url(r'^comments/', include('apps.comments.urls', namespace='comments')),
 ]

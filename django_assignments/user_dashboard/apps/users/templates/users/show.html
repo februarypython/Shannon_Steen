@@ -5,21 +5,23 @@
 {% block content %}
     <h2>{{user.first_name}} {{user.last_name}}</h2>
     <dl>
-        <dt>Registered:</dt><dd>{{user.created_at}}</dd><br>
+        <dt>Registered:</dt><dd>{{user.created_at|date:"N j, Y"}}</dd><br>
         <dt>User ID:</dt><dd># {{user.id}}</dd><br>
         <dt>Email Address:</dt><dd>{{user.email}}</dd><br>
         <dt>Description:</dt><dd>{{user.description}}</dd><br>
     </dl>
 
     {% if user.id != request.session.user_id %}
-    <form class="add-msg" action="{{/show/user.id/}}" method="POST">
+    <form class="add-msg" action="{% url 'communiques:create' user.id %}" method="POST">
         <div class="errors">
-        {% if messages %}
-            {% for msg in messages %}
-                <p class="text-danger">{{msg}}</p>
-            {% endfor %}
-        {% endif %}
-        </div> 
+            {% if messages %}
+                {% for msg in messages %}
+                    {% if "bad_msg" in msg.tags %}
+                        <p class="text-danger">{{msg}}</p>
+                    {% endif %}
+                {% endfor %}
+            {% endif %}
+            </div> 
         {% csrf_token %}         
         <fieldset>
             <legend><h4>Leave a message for {{user.first_name}}</h4></legend>
@@ -28,6 +30,50 @@
         </fieldset>
     </form>
     {% endif %}
+
+    {% for message in msg_rcvd %}
+    <div class="messages-container">
+        <div class="messages">
+            <p>
+                <a href="{% url 'users:show' message.msg_from.id %}">{{message.msg_from.first_name}} {{message.msg_from.last_name}}</a>
+                wrote
+                <span class="float-right">{% if message.created_at|timesince > '23 hours' %} {{message.created_at|date:"N j, Y"}} {% else %} {{message.created_at|timesince}} ago {% endif %}</span>
+            </p> 
+            <p>{{message.message}}</p>
+        </div>
+
+        {% for comment in comments %}
+            {% if comment.communique.id == message.id %}
+                <div class="comments">
+                    <p>
+                        <a href="{% url 'users:show' comment.commenter.id %}">{{comment.commenter.first_name}} {{comment.commenter.last_name}}</a>
+                        wrote
+                        <span class="float-right">{% if comment.created_at|timesince > '23 hours' %} {{comment.created_at|date:"N j, Y"}} {% else %} {{comment.created_at|timesince}} ago {% endif %}</span>
+                    </p> 
+                    <p>{{comment.comment}}</p>
+                </div>
+            {% endif %}
+        {% endfor %}
+        
+        <form class="add-cmt" action="{% url 'comments:create' message.id %}" method="POST">
+            <div class="errors">
+            {% if messages %}
+                {% for msg in messages %}
+                    {% if "bad_comment" in msg.tags %}
+                        <p class="text-danger">{{msg}}</p>
+                    {% endif %}
+                {% endfor %}
+            {% endif %}
+            </div> 
+            {% csrf_token %}         
+            <fieldset>
+                <legend><h5>Add a comment</h5></legend>
+                <textarea class="form-control" name="comment" id="comment" rows="1"></textarea><br>
+                <input class="float-right" name="post-cmt" type="submit" value="Post">
+            </fieldset>
+        </form>
+    </div>
+    {% endfor %}
 
     
 {% endblock %}

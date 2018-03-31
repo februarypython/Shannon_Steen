@@ -7,7 +7,7 @@
         {% if path == "/users/edit/" %}
         <h2>Edit Profile</h2>
         {% else %}
-        <h2>Edit User {{user_info.id}}<a class="btn btn-primary float-right" href="{% url 'users:dashboard' %}">Return to Dashboard</a></h2>
+        <h2>Edit User {{user_info.id}}<a class="btn btn-primary float-right" href="{% url 'login_registration:dashboard' %}">Return to Dashboard</a></h2>
         {% endif %}
 
         <form class="edit" action="{% url 'users:update' user_id=user_info.id %}" method="POST">

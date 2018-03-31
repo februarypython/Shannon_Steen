@@ -4,7 +4,7 @@
 
 {% block content %}
     {% if request.session.user_id %}
-        <h2 >Add a new user<a class="btn btn-primary float-right" href="{% url 'users:dashboard' %}">Return to Dashboard</a></h2>
+        <h2 >Add a new user<a class="btn btn-primary float-right" href="{% url 'login_registration:dashboard' %}">Return to Dashboard</a></h2>
     {% else%}
         <h2>Register</h2>
     {% endif %}
@@ -17,7 +17,7 @@
                 {% endfor %}
             {% endif %}
         </div>
-        <form class="registration" action="{% url 'users:create_user' %}" method="POST">
+        <form class="registration" action="{% url 'users:create' %}" method="POST">
             {% csrf_token %}
             <fieldset>
                 <label for="email">Email:</label>
@@ -38,7 +38,7 @@
             </fieldset>
         </form>
     {% if not request.session.user_id %}
-        <a class="nav-link" href="{% url 'users:login' %}">Already have an account? Login</a>
+        <a class="nav-link" href="{% url 'login_registration:login' %}">Already have an account? Login</a>
     {% endif %}
 
 {% endblock %}
