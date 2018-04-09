@@ -2,6 +2,8 @@
 
 {% block title %}User Information{% endblock %}
 
+{% block ct_msgs %}{{unread}}{% endblock %}
+
 {% block content %}
     <h2>{{user.first_name}} {{user.last_name}}</h2>
     <dl>
@@ -11,6 +13,10 @@
         <dt>Description:</dt><dd>{{user.description}}</dd><br>
     </dl>
 
+    {% if user.id == request.session.user_id and msg_ct == 0 %}
+        <p>You have no messages {{user.first_name}}. Get the conversation started by messaging other <a href="{% url 'login_registration:dashboard' %}">users</a>.</p>        
+    {% endif %}
+    
     {% if user.id != request.session.user_id %}
     <form class="add-msg" action="{% url 'communiques:create' user.id %}" method="POST">
         <div class="errors">
@@ -27,57 +33,73 @@
             <legend><h4>Leave a message for {{user.first_name}}</h4></legend>
             <textarea class="form-control" name="message" id="message" rows="2"></textarea><br>
             <input type="checkbox" name="private" id="private" data-toggle="tooltip" data-placement="right" title="Caution:  If you check this box, it will be viewable only by you and {{user.first_name}}."><label for="private">Mark Private</label>
-            <input class="float-right" name="post-msg" type="submit" value="Post">
+            <input class="float-right" name="post-msg" type="submit" value="Post Message">
         </fieldset>
     </form>
     {% endif %}
 
-
     {% for message in msg_rcvd %}
-        {% if message.privacy == 1 or request.session.user_id == message.msg_from_id or request.session.user_id == message.msg_to_id %}
-        <div class="messages-container">
-            <div class="messages">
-                <p></p>
-                    <a href="{% url 'users:show' message.msg_from.id %}">{{message.msg_from.first_name}} {{message.msg_from.last_name}}</a>
-                    wrote
-                    <span class="float-right">{% if message.created_at|timesince > '23 hours' %} {{message.created_at|date:"N j, Y"}} {% else %} {{message.created_at|timesince}} ago {% endif %}</span>
-                </p> 
-                <p>{{message.message}}</p>
+        {% if message.has_been_archived == 0 %}
+            {% if message.privacy == 1 or request.session.user_id == message.msg_from_id or request.session.user_id == message.msg_to_id %}        
+            <div class="messages-container">
+                {% if request.session.user_id == message.msg_to_id %}
+                    <form class="archive-msg" action="{% url 'communiques:update' message.id %}" method="POST">
+                        {% csrf_token %}
+                        <input type="checkbox" name="archive" id="archive" data-toggle="tooltip" data-placement="right" title="Messages will auto-archive after 60 days. However, if you'd like to archive sooner, check this box."><label for="archive">Archive Message</label>
+                    </form>
+                {% endif %}
+                <div class="messages">
+                    <p>
+                        <a href="{% url 'users:show' message.msg_from.id %}">{{message.msg_from.first_name}} {{message.msg_from.last_name}}</a>
+                        wrote
+                        <span class="float-right">{% if message.created_at|timesince > '1 day' %} {{message.created_at|date:"N j, Y"}} {% else %} {{message.created_at|timesince}} ago {% endif %}</span>
+                    </p> 
+                    <p class="msg-{{message.id}} {% if message.has_been_read == 1 %}read{% endif %}">{{message.message}}</p>
+                </div>
+                
+                {% for comment in comments %}
+                    {% if comment.communique.id == message.id %}
+                        <div class="comments">
+                            <p>
+                                <a href="{% url 'users:show' comment.commenter.id %}">{{comment.commenter.first_name}} {{comment.commenter.last_name}}</a>
+                                wrote
+                                <span class="float-right">{% if comment.created_at|timesince > '1 day' %} {{comment.created_at|date:"N j, Y"}} {% else %} {{comment.created_at|timesince}} ago {% endif %}</span>
+                            </p>
+                            
+                            <p>{{comment.comment}}
+                                {% if comment.commenter.id == request.session.user_id %}
+                                <a class="btn btn-primary btn-sm float-right" href="{% url 'comments:destroy' comment.id %}">Delete Comment</a>
+                                {% endif %}
+                            </p>
+                        </div>
+                    {% endif %}
+                {% endfor %}
+                
+                <form class="add-cmt" action="{% url 'comments:create' message.id %}" method="POST">
+                    <div class="errors">
+                    {% if messages %}
+                        {% for msg in messages %}
+                            {% if "bad_comment" in msg.tags %}
+                                <p class="text-danger">{{msg}}</p>
+                            {% endif %}
+                        {% endfor %}
+                    {% endif %}
+                    </div> 
+                    {% csrf_token %}         
+                    <fieldset>
+                        <legend><h5>Add a comment</h5></legend>
+                        <textarea class="form-control" name="comment" id="comment" rows="1"></textarea><br>
+                        <input class="float-right" name="post-cmt" type="submit" value="Add Comment">
+                    </fieldset>
+                </form>
             </div>
-
-            {% for comment in comments %}
-                {% if comment.communique.id == message.id %}
-                    <div class="comments">
-                        <p>
-                            <a href="{% url 'users:show' comment.commenter.id %}">{{comment.commenter.first_name}} {{comment.commenter.last_name}}</a>
-                            wrote
-                            <span class="float-right">{% if comment.created_at|timesince > '23 hours' %} {{comment.created_at|date:"N j, Y"}} {% else %} {{comment.created_at|timesince}} ago {% endif %}</span>
-                        </p> 
-                        <p>{{comment.comment}}</p>
-                    </div>
-                {% endif %}
-            {% endfor %}
-            
-            <form class="add-cmt" action="{% url 'comments:create' message.id %}" method="POST">
-                <div class="errors">
-                {% if messages %}
-                    {% for msg in messages %}
-                        {% if "bad_comment" in msg.tags %}
-                            <p class="text-danger">{{msg}}</p>
-                        {% endif %}
-                    {% endfor %}
-                {% endif %}
-                </div> 
-                {% csrf_token %}         
-                <fieldset>
-                    <legend><h5>Add a comment</h5></legend>
-                    <textarea class="form-control" name="comment" id="comment" rows="1"></textarea><br>
-                    <input class="float-right" name="post-cmt" type="submit" value="Post">
-                </fieldset>
-            </form>
-        </div>
+            {% endif %}
         {% endif %}
     {% endfor %}
-
+    
+    {% if user.id == request.session.user_id %}
+        <a href="{% url 'communiques:show' request.session.user_id %}">View Archived Messages</a>
+    {% endif %}
+    
     
 {% endblock %}

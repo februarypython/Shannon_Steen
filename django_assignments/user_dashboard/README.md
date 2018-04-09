@@ -6,3 +6,6 @@ wireframe http://s3.amazonaws.com/General_V88/boomyeah/company_209/chapter_3834/
 
 Additional Features Added:
     ability to mark messages private; private messages (any any related comments) are only viewable by sender/receiver
+    ability for users to delete comments they have previously posted
+    ability for users to archive messages written to them and view said archived messages
+    added auto-mark messages "read" and added count of "unread" messages to navbar (improvements to be made)

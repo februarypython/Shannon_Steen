@@ -2,7 +2,6 @@
 from __future__ import unicode_literals
 
 from django.shortcuts import render, redirect, HttpResponse
-from django.urls import reverse
 from django.contrib import messages  #for flashing error messages
 from ..users.models import User  #import user model
 from ..communiques.models import Communique #import communique model
@@ -11,6 +10,11 @@ from ..communiques.models import Communique #import communique model
 
 #show home page
 def index(request):
+    if 'user_id' in request.session:
+        context = {
+        'unread': Communique.objects.filter(msg_to=request.session['user_id']).filter(has_been_read=False).count(),
+        }
+        return render(request, 'login_registration/homepage.html', context)
     return render(request, 'login_registration/homepage.html')
 
 #show add_new form
@@ -28,13 +32,13 @@ def login(request):
         if len(errors): #if there are any errors return user to login to correct
             for tag, error in errors.items():
                 messages.error(request, error, extra_tags = tag)
-            return redirect(reverse('login_registration:login'))
+            return redirect('login_registration:login')
         else: #login user
             user = User.objects.get(email=request.POST['email'])
             request.session['user_id'] = user.id
             request.session['name'] = user.first_name
             request.session['license'] = user.user_level
-            return redirect(reverse('login_registration:dashboard'))
+            return redirect('login_registration:dashboard')
     else:
         return render(request, 'login_registration/login.html')
 
@@ -42,7 +46,7 @@ def login(request):
 def show(request):
     #ensure user is in session
     if 'user_id' not in request.session:
-        return redirect(reverse('login_registration:homepage'))
+        return redirect('login_registration:homepage')
     if request.session['license'] == 9:  #user is an admin, tweak page to show admin options
         page_title = "Admin Dashboard"
         permission = "admin"
@@ -53,7 +57,7 @@ def show(request):
         'users': User.objects.all(),
         'permission': permission, 
         'page_title':  page_title,
-        'msg_ct': Communique.objects.filter(msg_to=request.session['user_id']).count(),
+        'unread': Communique.objects.filter(msg_to=request.session['user_id']).filter(has_been_read=False).count(),
     }
     return render(request, 'login_registration/index.html', context)
 
@@ -62,4 +66,4 @@ def logout(request):
     #clear all session information
     for i in request.session.keys():
         del request.session[i]
-    return redirect(reverse('login_registration:homepage'))
+    return redirect('login_registration:homepage')

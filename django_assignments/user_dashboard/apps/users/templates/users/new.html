@@ -2,6 +2,8 @@
 
 {% block title %}{{page_title}}{% endblock %}
 
+{% block ct_msgs %}{{unread}}{% endblock %}
+
 {% block content %}
     {% if request.session.user_id %}
         <h2 >Add a new user<a class="btn btn-primary float-right" href="{% url 'login_registration:dashboard' %}">Return to Dashboard</a></h2>

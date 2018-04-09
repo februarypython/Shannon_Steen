@@ -8,6 +8,13 @@
     background-color: #343A5C;
     border-color: #343A5C;
 }
+a.btn.btn-primary.btn-sm.float-right{
+    background-color: buttonface;
+    color: #343A5C;
+    font-weight: bold;
+    box-shadow: 1px 1px 1px #252525;
+    margin-top: 3px;
+}
 .container-fluid{
     padding: 25px;
 }
@@ -97,6 +104,9 @@ footer{
     margin-top: 0px;
     margin-bottom: 0px;
 }
+.archive-msg{
+    margin: 0px;
+}
 .comments, .add-cmt{
     width: 80%;
     margin-left: 10%;
@@ -117,13 +127,21 @@ footer{
 .messages p, .comments p{
     margin-bottom: 0px;
 }
+.comments p:nth-of-type(2){
+    margin-bottom: 5px;
+}
 .comments:nth-of-type(odd){
     border-top: 1.5px solid #dee1ed;
     border-bottom: 1.5px solid #dee1ed;
 }
-#private, label[for='private']{
+#private, label[for='private'], #archive, label[for='archive']{
     display: inline;
     width: fit-content;
     font-style: italic;
+    color: #8d94bf;
+}
+.messages p.archive-date{
+    font-style: italic;
+    margin-bottom: 10px;
     color: #8d94bf;
 }

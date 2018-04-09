@@ -11,82 +11,82 @@ PW_REGEX = re.compile(r'^(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$') #regex for passwor
 # Create your models here.
 class UserManager(models.Manager):
     #validate registration information
-    def registration_valid(self, postData):
+    def registration_valid(self, post_data):
         errors = {}
-        if len(postData['email']) < 1 or not EMAIL_REGEX.match(postData['email']): #null or invalid
+        if len(post_data['email']) < 1 or not EMAIL_REGEX.match(post_data['email']): #null or invalid
             errors['email'] = "Please enter a valid email address."
         #check if email is already in database
-        if User.objects.filter(email=postData['email']): #email already in db
+        if User.objects.filter(email=post_data['email']): #email already in db
             errors['dup_email'] = "Sorry, that email already exists in the database."
-        if not NAME_REGEX.match(postData['first_name']):  #null or invalid
+        if not NAME_REGEX.match(post_data['first_name']):  #null or invalid
             errors['fname'] = "Please enter the first name, ensuring invalid characters (numbers, symbols) are not included."
-        if not NAME_REGEX.match(postData['last_name']):  #null or invalid
+        if not NAME_REGEX.match(post_data['last_name']):  #null or invalid
             errors['lname'] = "Please enter the last name, ensuring invalid characters (numbers, symbols) are not included."
-        if len(postData['password']) < 1 or not PW_REGEX.match(postData['password']): #null or invalid
+        if len(post_data['password']) < 1 or not PW_REGEX.match(post_data['password']): #null or invalid
             errors['password'] = "Please enter a valid password. Password must be at least 8 characters, include one uppercase letter and one number."
-        if postData['pwconf'] != postData['password']: #passwords do not match
+        if post_data['pwconf'] != post_data['password']: #passwords do not match
             errors['pwconf'] = "The password you entered does not match. Please try again."
         return errors
 
     #validate login information
-    def login_valid(self, postData):
+    def login_valid(self, post_data):
         errors = {}
         try:  
             #search for user based on email address
-            user = User.objects.get(email=postData['email'])
+            user = User.objects.get(email=post_data['email'])
             #found one, now confirm password
-            if not bcrypt.checkpw(postData['password'].encode(), user.password.encode()): #passwords do not match
+            if not bcrypt.checkpw(post_data['password'].encode(), user.password.encode()): #passwords do not match
                 errors['bad_login'] = "You have entered an invalid email address or password."
         except User.DoesNotExist: #no user found
             errors['bad_login'] = "You have entered an invalid email address or password."
         return errors
 
-    def create_user(self, postData):
+    def create_user(self, post_data):
         user_count = User.objects.count()
         print user_count
         if user_count == 0:  #no users, register first person as admin
             user_level = 9
         else: #user exist, assign as user
             user_level = 1
-        first_name = postData['first_name']
-        last_name = postData['last_name']
-        email = postData['email']
-        enc_pw = bcrypt.hashpw(postData['password'].encode(), bcrypt.gensalt())  #encrypt password
+        first_name = post_data['first_name']
+        last_name = post_data['last_name']
+        email = post_data['email']
+        enc_pw = bcrypt.hashpw(post_data['password'].encode(), bcrypt.gensalt())  #encrypt password
         user = self.create(first_name=first_name, last_name=last_name, email=email, password=enc_pw, user_level=user_level)
         return user
 
-    def update_user_info(self, postData, user_id):
+    def update_user_info(self, post_data, user_id):
         errors = {}
-        if not NAME_REGEX.match(postData['first_name']):  #null or invalid
+        if not NAME_REGEX.match(post_data['first_name']):  #null or invalid
             errors['fname'] = "Please enter the first name, ensuring invalid characters (numbers, symbols) are not included."
-        if not NAME_REGEX.match(postData['last_name']):  #null or invalid
+        if not NAME_REGEX.match(post_data['last_name']):  #null or invalid
             errors['lname'] = "Please enter the last name, ensuring invalid characters (numbers, symbols) are not included."
-        if len(postData['email']) < 1 or not EMAIL_REGEX.match(postData['email']): #null or invalid
+        if len(post_data['email']) < 1 or not EMAIL_REGEX.match(post_data['email']): #null or invalid
             errors['email'] = "Please enter a valid email address."
         if len(errors):
             print "we got errors"
             return errors
         print "wonder if we can change the data from here?"
         user = User.objects.get(id=user_id)
-        user.first_name = postData['first_name']
-        user.last_name = postData['last_name']
-        user.email = postData['email']
-        user.user_level = postData['user_level']
+        user.first_name = post_data['first_name']
+        user.last_name = post_data['last_name']
+        user.email = post_data['email']
+        user.user_level = post_data['user_level']
         user.save()
         return errors  #while there are none, we need to return something so we'll address that in views
 
-    def update_password(self, postData, user_id):
-        print "postData from models, {}".format(postData)
+    def update_password(self, post_data, user_id):
+        print "post_data from models, {}".format(post_data)
         errors = {}
-        if len(postData['password']) < 1 or not PW_REGEX.match(postData['password']): #null or invalid
+        if len(post_data['password']) < 1 or not PW_REGEX.match(post_data['password']): #null or invalid
             errors['password'] = "Please enter a valid password. Password must be at least 8 characters, include one uppercase letter and one number."
-        if postData['pwconf'] != postData['password']: #passwords do not match
+        if post_data['pwconf'] != post_data['password']: #passwords do not match
             errors['pwconf'] = "The password you entered does not match. Please try again."
         if len(errors):
             print "we got errors"
             return errors
         print "wonder if we can change the data from here?"
-        enc_pw = bcrypt.hashpw(postData['password'].encode(), bcrypt.gensalt())  #encrypt password
+        enc_pw = bcrypt.hashpw(post_data['password'].encode(), bcrypt.gensalt())  #encrypt password
         user = User.objects.get(id=user_id)
         user.password = enc_pw
         user.save

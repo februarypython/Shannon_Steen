@@ -13,7 +13,7 @@
 <body>
     <!-- collapsible navbar -->
     <nav class="navbar navbar-expand-md navbar-dark bg-dark">
-        <a class="navbar-brand" href="{% url 'login_registration:homepage' %}">{% if request.session.user_id %}Welcome {{request.session.name}}{% else %}Test App{% endif %}</a>
+        <a class="navbar-brand" href="{% url 'login_registration:homepage' %}">{% if request.session.user_id %}Welcome {{request.session.name}} {% else %}Test App{% endif %}</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarToggle" aria-controls="navbarToggle">
             <span class="navbar-toggler-icon"></span>
         </button>
@@ -30,7 +30,7 @@
                     <a class="nav-link" href="{% url 'users:edit' %}">Profile</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="{% url 'users:show' request.session.user_id %}">My Messages{% block ct_msgs %}{% endblock %}</a>
+                    <a class="nav-link" id="my-messages" href="{% url 'users:show' request.session.user_id %}">My Messages ({% block ct_msgs %}{% endblock %})</a>
                 </li>
                 {% endif %}
             </ul>
@@ -59,6 +59,8 @@
 <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+<!-- All other jQuery actions including ajax -->
+<script src="https://code.jquery.com/jquery-3.1.0.min.js"></script>
 {% load static %}
 <script src="{% static 'users/script/script.js' %}"></script>
 </html>

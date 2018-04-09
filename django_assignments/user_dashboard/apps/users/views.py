@@ -2,7 +2,6 @@
 from __future__ import unicode_literals
 
 from django.shortcuts import render, redirect, HttpResponse
-from django.urls import reverse
 from django.contrib import messages  #for flashing error messages
 from .models import User  #import user model
 from ..communiques.models import Communique #import communique model
@@ -14,18 +13,15 @@ from ..comments.models import Comment #import comment model
 def new(request):
     #ensure user is in session
     if 'user_id' not in request.session:
-        return redirect(reverse('login_registration:homepage'))
+        return redirect('login_registration:homepage')
     context = {
         'page_title': 'New User',
-        'msg_ct': Communique.objects.filter(msg_to=request.session['user_id']).count(),
+        'unread': Communique.objects.filter(msg_to=request.session['user_id']).filter(has_been_read=False).count(),
     }
     return render(request, 'users/new.html', context)
 
 #create new user
 def create(request):
-    #ensure user is in session
-    if 'user_id' not in request.session:
-        return redirect(reverse('login_registration:homepage'))
     previous_page = request.META['HTTP_REFERER']
     #validate data
     request.session['formdata'] = request.POST
@@ -41,16 +37,17 @@ def create(request):
             request.session['user_id'] = user.id
             request.session['name'] = user.first_name
             request.session['license'] = user.user_level
-        return redirect(reverse('login_registration:dashboard'))
+        return redirect('login_registration:dashboard')
 
 def show(request, user_id):
     #ensure user is in session
     if 'user_id' not in request.session:
-        return redirect(reverse('login_registration:homepage'))
+        return redirect('login_registration:homepage')
     context = {
         'user': User.objects.get(id=user_id),
         'msg_rcvd': Communique.objects.filter(msg_to=user_id).order_by('-created_at'),
         'comments': Comment.objects.all(),
+        'unread': Communique.objects.filter(msg_to=request.session['user_id']).filter(has_been_read=False).count(),
         'msg_ct': Communique.objects.filter(msg_to=request.session['user_id']).count(),
     }
     return render(request, 'users/show.html', context)
@@ -59,7 +56,7 @@ def show(request, user_id):
 def edit(request, **kwargs):
     #ensure user is in session
     if 'user_id' not in request.session:
-        return redirect(reverse('login_registration:homepage'))
+        return redirect('login_registration:homepage')
     chosen_path = request.path
     if request.session['license'] == 9:  #user is an admin, tweak page to show admin options
         page_title = "Edit User"
@@ -76,7 +73,7 @@ def edit(request, **kwargs):
         'permission': permission,
         'user_info': User.objects.get(id=user_id),
         'path': chosen_path,
-        'msg_ct': Communique.objects.filter(msg_to=request.session['user_id']).count(),
+        'unread': Communique.objects.filter(msg_to=request.session['user_id']).filter(has_been_read=False).count(),
     }
     return render(request, 'users/edit.html', context)
 
@@ -84,7 +81,7 @@ def edit(request, **kwargs):
 def update(request, user_id):
     #ensure user is in session
     if 'user_id' not in request.session:
-        return redirect(reverse('login_registration:homepage'))
+        return redirect('login_registration:homepage')
     previous_page = request.META['HTTP_REFERER']
     #determine which form was updated and validate data
     if 'update-info' in request.POST:  #this is the edit info form
@@ -115,7 +112,7 @@ def update(request, user_id):
 def destroy(request, user_id):
     #ensure user is in session
     if 'user_id' not in request.session:
-        return redirect(reverse('login_registration::homepage'))
+        return redirect('login_registration:homepage')
     user = User.objects.get(id=user_id)
     user.delete()
-    return redirect(reverse('login_registration:dashboard'))
+    return redirect('login_registration:dashboard')

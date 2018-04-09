@@ -1,0 +1,48 @@
+{% extends "users/layout.html" %}
+
+{% block title %}Archived Messages{% endblock %}
+
+{% block ct_msgs %}{{unread}}{% endblock %}
+
+{% block content %}
+    <h2>{{user.first_name}} {{user.last_name}}</h2>
+    <dl>
+        <dt>Registered:</dt><dd>{{user.created_at|date:"N j, Y"}}</dd><br>
+        <dt>User ID:</dt><dd># {{user.id}}</dd><br>
+        <dt>Email Address:</dt><dd>{{user.email}}</dd><br>
+        <dt>Description:</dt><dd>{{user.description}}</dd><br>
+    </dl>
+
+    {% for message in msg_rcvd %}
+        <div class="messages-container">
+            <div class="messages">
+                <p class="archive-date">Archived {{message.updated_at|date:"N j, Y"}}</p>
+                <p>
+                    <a href="{% url 'users:show' message.msg_from.id %}">{{message.msg_from.first_name}} {{message.msg_from.last_name}}</a>
+                    wrote
+                    <span class="float-right">{{message.created_at|date:"N j, Y"}}</span>
+                </p> 
+                <p class="msg-{{message.id}}">{{message.message}}</p>
+            </div>
+
+            {% for comment in comments %}
+                {% if comment.communique.id == message.id %}
+                    <div class="comments">
+                        <p>
+                            <a href="{% url 'users:show' comment.commenter.id %}">{{comment.commenter.first_name}} {{comment.commenter.last_name}}</a>
+                            wrote
+                            <span class="float-right">{% if comment.created_at|timesince > '23 hours' %} {{comment.created_at|date:"N j, Y"}} {% else %} {{comment.created_at|timesince}} ago {% endif %}</span>
+                        </p> 
+                        <p>{{comment.comment}}
+                        {% if comment.commenter.id == request.session.user_id %}
+                        <a class="btn btn-primary btn-sm float-right" href="{% url 'comments:destroy' comment.id %}">Delete Comment</a>
+                        {% endif %}</p>
+                    </div>
+                {% endif %}
+            {% endfor %}
+        </div>
+    {% endfor %}
+    
+    <a href="{% url 'users:show' request.session.user_id %}">View Active Messages</a>
+    
+{% endblock %}

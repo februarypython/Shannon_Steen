@@ -7,16 +7,16 @@ from ..communiques.models import Communique
 
 # Create your models here.
 class CommentManager(models.Manager):
-    def valid_comment(self, postData):
+    def valid_comment(self, post_data):
         errors = {}
-        if len(postData['comment']) < 1: #null
+        if len(post_data['comment']) < 1: #null
             errors['no_comment'] = "Oops, you forgot to enter your comment. Please do so now."
         return errors
 
-    def add_comment(self, postData, msg_id, user_id):
+    def add_comment(self, post_data, msg_id, user_id):
         this_msg = Communique.objects.get(id=msg_id)
         this_user = User.objects.get(id=user_id)
-        this_comment = self.create(comment=postData['comment'], communique=this_msg, commenter=this_user)
+        this_comment = self.create(comment=post_data['comment'], communique=this_msg, commenter=this_user)
         return this_msg 
 
 class Comment(models.Model):

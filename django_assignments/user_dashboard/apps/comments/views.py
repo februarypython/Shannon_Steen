@@ -2,7 +2,6 @@
 from __future__ import unicode_literals
 
 from django.shortcuts import render, redirect, HttpResponse
-from django.urls import reverse
 from django.contrib import messages  #for flashing error messages
 from ..users.models import User  #import user model
 from ..communiques.models import Communique  #import communique model
@@ -15,7 +14,7 @@ from .models import Comment  #import comment model
 def create(request, msg_id):
     #ensure user is in session
     if 'user_id' not in request.session:
-        return redirect(reverse('login_registration:homepage'))
+        return redirect('login_registration:homepage')
     user_id = request.session['user_id']
     previous_page = request.META['HTTP_REFERER']
     #validate data
@@ -27,3 +26,13 @@ def create(request, msg_id):
     else: #add a new book
         new_comment = Comment.objects.add_comment(request.POST, msg_id, user_id)
         return redirect(previous_page)
+
+#delete a comment
+def destroy(request, cmt_id):
+    #ensure user is in session
+    if 'user_id' not in request.session:
+        return redirect('login_registration:homepage')
+    previous_page = request.META['HTTP_REFERER']
+    comment = Comment.objects.get(id=cmt_id)
+    comment.delete()
+    return redirect(previous_page)

@@ -2,6 +2,8 @@
 
 {% block title %}{{page_title}}{% endblock %}
 
+{% block ct_msgs %}{{unread}}{% endblock %}
+
 {% block content %}
         {% if permission == 'admin' %}
         <h3>Manage Users<a class="btn btn-primary float-right" href="{% url 'users:new' %}">Add a new user</a></h3>
