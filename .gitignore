@@ -5,7 +5,17 @@ form_test/
 practice_assignments
 OOP_assignments/product.pyc
 django_assignments/multiple_apps/
+django_assignments/multiple_apps/db.sqlite3
+django_assignments/multiple_apps/multiple_apps/settings.py
+django_assignments/multiple_apps/multiple_apps/settings.pyc
 django_assignments/faith_food/
 django_assignments/travel_buddy/
 
 django_assignments/ecommerce/
+django_assignments/ecommerce/apps/amadon/static/amadon/css/style.css
+django_assignments/ecommerce/apps/amadon/templates/amadon/cart.html
+django_assignments/ecommerce/apps/amadon/templates/amadon/index.html
+django_assignments/ecommerce/apps/amadon/urls.pyc
+django_assignments/ecommerce/apps/amadon/views.py
+django_assignments/ecommerce/apps/amadon/views.pyc
+django_assignments/ecommerce/db.sqlite3
