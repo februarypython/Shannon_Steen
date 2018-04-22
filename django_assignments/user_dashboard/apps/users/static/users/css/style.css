@@ -145,3 +145,11 @@ footer{
     margin-bottom: 10px;
     color: #8d94bf;
 }
+img#footer-logo{
+    width: 3%;
+}
+footer{
+    display: inline-block;
+    margin-left: 5px;
+    vertical-align: middle;
+}

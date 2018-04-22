@@ -4,6 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    {% load static %}
+    <link rel="shortcut icon" href="{% static 'users/images/favicon.ico' %}">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
     {% load static %}
     <link rel="stylesheet" href="{% static 'users/css/style.css' %}">
@@ -27,7 +29,7 @@
                     <a class="nav-link" href="{% url 'login_registration:dashboard' %}">Dashboard</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="{% url 'users:edit' %}">Profile</a>
+                    <a class="nav-link" href="{% url 'users:edit' request.session.user_id %}">Profile</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" id="my-messages" href="{% url 'users:show' request.session.user_id %}">My Messages ({% block ct_msgs %}{% endblock %})</a>
@@ -52,7 +54,7 @@
         {% endblock %}
     </div>
     <div class="container-fluid">
-        <footer>Polly Designs &trade;</footer>
+        <img id="footer-logo" src="{% static 'users/images/favicon.ico' %}" alt="mylogo"><footer>Polly Designs &trade;</footer>
     </div>
 </body>
 <!-- JavaScript Bootstrap - jquery, popper, then bootstrap js -->
