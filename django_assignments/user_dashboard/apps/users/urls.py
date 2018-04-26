@@ -9,4 +9,5 @@ urlpatterns = [
     url(r'edit/(?P<user_id>\d+)/$', views.edit, name="edit"), #render edit.html
     url(r'update/(?P<user_id>\d+)/$', views.update, name="update"),
     url(r'(?P<user_id>\d+)/destroy/$', views.destroy, name="destroy"),
+    # this is a test
 ]
