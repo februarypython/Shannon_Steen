@@ -5,6 +5,7 @@ from django.shortcuts import render, redirect, HttpResponse
 from django.contrib import messages  #for flashing error messages
 from ..users.models import User  #import user model
 from ..communiques.models import Communique #import communique model
+from ..users.decorators import required_login #import decorator function
 
 #Create your views here.
 
@@ -29,7 +30,7 @@ def login(request):
     if request.method == 'POST':
         #validate login
         errors = User.objects.login_valid(request.POST)
-        if len(errors): #if there are any errors return user to login to correct
+        if errors: #if there are any errors return user to login to correct
             for tag, error in errors.items():
                 messages.error(request, error, extra_tags = tag)
             return redirect('login_registration:login')
@@ -43,10 +44,8 @@ def login(request):
         return render(request, 'login_registration/login.html')
 
 #show all users
+@required_login
 def show(request):
-    #ensure user is in session
-    if 'user_id' not in request.session:
-        return redirect('login_registration:homepage')
     if request.session['license'] == 9:  #user is an admin, tweak page to show admin options
         page_title = "Admin Dashboard"
         permission = "admin"

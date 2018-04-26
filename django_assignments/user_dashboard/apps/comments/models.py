@@ -25,7 +25,7 @@ class Comment(models.Model):
     commenter = models.ForeignKey(User, related_name="comments", on_delete=models.CASCADE)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
-    #connect instance of UserManager overwriting old objects key with new properties
+    #connect instance of CommentsManager overwriting old objects key with new properties
     objects = CommentManager()
 
     def __str__(self):

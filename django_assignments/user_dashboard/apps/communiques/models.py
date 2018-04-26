@@ -22,6 +22,19 @@ class CommuniqueManager(models.Manager):
         this_msg = self.create(message=post_data['message'], privacy=priv, msg_from=msg_from, msg_to=msg_to)
         return this_msg 
 
+    def archive_message(self, message_id):
+        msg = Communique.objects.get(id=message_id)
+        msg.has_been_read = True
+        msg.has_been_archived = True
+        msg.save()
+        return msg
+    
+    def read_message(self, message_id):
+        msg = Communique.objects.get(id=message_id)
+        msg.has_been_read = True
+        msg.save()
+        return msg
+
 class Communique(models.Model):
     STATUS_CHOICES = (
         (0, 'private'),
@@ -35,7 +48,7 @@ class Communique(models.Model):
     has_been_archived = models.BooleanField(default=False)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
-    #connect instance of UserManager overwriting old objects key with new properties
+    #connect instance of CommuniqueManager overwriting old objects key with new properties
     objects = CommuniqueManager()
 
     def __str__(self):

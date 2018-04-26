@@ -46,7 +46,7 @@ class UserManager(models.Manager):
         print user_count
         if user_count == 0:  #no users, register first person as admin
             user_level = 9
-        else: #user exist, assign as user
+        else: #users exist, assign as user
             user_level = 1
         first_name = post_data['first_name']
         last_name = post_data['last_name']
@@ -63,17 +63,15 @@ class UserManager(models.Manager):
             errors['lname'] = "Please enter the last name, ensuring invalid characters (numbers, symbols) are not included."
         if len(post_data['email']) < 1 or not EMAIL_REGEX.match(post_data['email']): #null or invalid
             errors['email'] = "Please enter a valid email address."
-        if len(errors):
-            print "we got errors"
+        if errors:
             return errors
-        print "wonder if we can change the data from here?"
         user = User.objects.get(id=user_id)
         user.first_name = post_data['first_name']
         user.last_name = post_data['last_name']
         user.email = post_data['email']
         user.user_level = post_data['user_level']
         user.save()
-        return errors  #while there are none, we need to return something so we'll address that in views
+        return user
 
     def update_password(self, post_data, user_id):
         print "post_data from models, {}".format(post_data)
@@ -82,15 +80,20 @@ class UserManager(models.Manager):
             errors['password'] = "Please enter a valid password. Password must be at least 8 characters, include one uppercase letter and one number."
         if post_data['pwconf'] != post_data['password']: #passwords do not match
             errors['pwconf'] = "The password you entered does not match. Please try again."
-        if len(errors):
-            print "we got errors"
+        if errors:
             return errors
-        print "wonder if we can change the data from here?"
         enc_pw = bcrypt.hashpw(post_data['password'].encode(), bcrypt.gensalt())  #encrypt password
         user = User.objects.get(id=user_id)
         user.password = enc_pw
         user.save
-        return errors #while there are none, we need to return something so we'll address that in views
+        return user
+    
+    def update_user_desc(self, post_data, user_id):
+        #no need to validate, make the changes
+        user = User.objects.get(id=user_id)
+        user.description = request.POST['desc']
+        user.save()
+        return user
 
 class User(models.Model):
     STATUS_CHOICES = (
