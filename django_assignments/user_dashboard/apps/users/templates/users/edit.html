@@ -6,24 +6,27 @@
 
 {% block content %}
 
-        {% if path == "/users/edit/" %}
-        <h2>Edit Profile</h2>
-        {% else %}
-        <h2>Edit User {{user_info.id}}<a class="btn btn-primary float-right" href="{% url 'login_registration:dashboard' %}">Return to Dashboard</a></h2>
+    {% if request.session.license == 1 and request.session.user_id != user_info.id  %}
+    <h2 class="text-danger">You do not have the appropriate permission level to make changes to this user.</h2>
+    {% else %}
+        {% if request.session.user_id == user_info.id %}
+            <h2>Edit Profile</h2>
+            {% else %}
+            <h2>Edit User {{user_info.id}}<a class="btn btn-primary float-right" href="{% url 'login_registration:dashboard' %}">Return to Dashboard</a></h2>
         {% endif %}
-
+        
         <form class="edit" action="{% url 'users:update' user_id=user_info.id %}" method="POST">
             <!-- validation error messages -->
             <div class="errors">
-            {% if messages %}
-                {% for msg in messages %}
-                    {% if "bad_info" in msg.tags %}
-                    <p class="text-danger">{{msg}}</p>
-                    {% elif "info_success" in msg.tags %}
-                    <p class="text-success">{{msg}}</p>
-                    {% endif %}
-                {% endfor %}
-            {% endif %}
+                {% if messages %}
+                    {% for msg in messages %}
+                        {% if "bad_info" in msg.tags %}
+                            <p class="text-danger">{{msg}}</p>
+                        {% elif "info_success" in msg.tags %}
+                            <p class="text-success">{{msg}}</p>
+                        {% endif %}
+                    {% endfor %}
+                {% endif %}
             </div>
             {% csrf_token %}
             <fieldset>
@@ -44,19 +47,19 @@
                 <input class="float-right" name="update-info" type="submit" value="Save">
             </fieldset>
         </form>
-
+        
         <form class="change-pw" action="{% url 'users:update' user_id=user_info.id %}" method="POST">
             <!-- validation error messages -->
             <div class="errors">
-            {% if messages %}
-                {% for msg in messages %}
-                    {% if "bad_pw" in msg.tags %}
-                    <p class="text-danger">{{msg}}</p>
-                    {% elif "pw_success" in msg.tags %}
-                    <p class="text-success">{{msg}}</p>
-                    {% endif %}
-                {% endfor %}
-            {% endif %}
+                {% if messages %}
+                    {% for msg in messages %}
+                        {% if "bad_pw" in msg.tags %}
+                            <p class="text-danger">{{msg}}</p>
+                        {% elif "pw_success" in msg.tags %}
+                            <p class="text-success">{{msg}}</p>
+                        {% endif %}
+                    {% endfor %}
+                {% endif %}
             </div>            
             {% csrf_token %}
             <fieldset>
@@ -68,17 +71,17 @@
                 <input class="float-right" name="update-password" type="submit" value="Change Password">
             </fieldset>
         </form>   
-
+        
         {% if user_info.id == request.session.user_id %}
         <form class="add-desc" action="{% url 'users:update' user_id=user_info.id %}" method="POST">
             <div class="errors">
-            {% if messages %}
-                {% for msg in messages %}
-                    {% if "desc_success" in msg.tags %}
-                    <p class="text-success">{{msg}}</p>
-                    {% endif %}
-                {% endfor %}
-            {% endif %}
+                {% if messages %}
+                    {% for msg in messages %}
+                        {% if "desc_success" in msg.tags %}
+                            <p class="text-success">{{msg}}</p>
+                        {% endif %}
+                    {% endfor %}
+                {% endif %}
             </div> 
             {% csrf_token %}         
             <fieldset>
@@ -88,6 +91,5 @@
             </fieldset>
         </form>
         {% endif %}
-
-
+    {% endif %}
 {% endblock %}
