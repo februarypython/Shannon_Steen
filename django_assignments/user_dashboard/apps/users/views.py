@@ -53,26 +53,22 @@ def show(request, user_id):
     return render(request, 'users/show.html', context)
 
 #show edit form
-def edit(request, **kwargs):
+def edit(request, user_id):
     #ensure user is in session
     if 'user_id' not in request.session:
         return redirect('login_registration:homepage')
-    chosen_path = request.path
     if request.session['license'] == 9:  #user is an admin, tweak page to show admin options
-        page_title = "Edit User"
         permission = "admin"
+        page_title = "Edit User"
+        if int(user_id) == request.session['user_id']:
+            page_title = "Edit Profile"
     else:
         page_title = "Edit Profile"
         permission = "user"
-    if not kwargs:  #user level permissions, get id stored in session
-        user_id = request.session['user_id']
-    else: #admin level permissions, get from url
-        user_id = kwargs['user_id']
     context = {
         'page_title': page_title,
         'permission': permission,
         'user_info': User.objects.get(id=user_id),
-        'path': chosen_path,
         'unread': Communique.objects.filter(msg_to=request.session['user_id']).filter(has_been_read=False).count(),
     }
     return render(request, 'users/edit.html', context)
